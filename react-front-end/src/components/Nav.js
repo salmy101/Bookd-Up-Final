@@ -6,17 +6,15 @@ import styled from "styled-components";
 import { UserContext } from "../context/UserContext";
 
 export default function Nav() {
-  const value = useContext(UserContext);
-  const { isLoggedIn, setIsLoggedIn } = value
-
+  
+  const { user, setUser } = useContext(UserContext);
 
   const navigate = useNavigate();
 
-    const logout = () => {
+  const logout = () => {
     localStorage.removeItem('current_user');
-    setIsLoggedIn(false);
+    setUser(null);
     navigate("/");
-
   };
 
 
@@ -44,12 +42,17 @@ export default function Nav() {
             </StyledNavLink>
           </li>
           <li>
-            <StyledNavLink to="/signup" className="nav-item signup">
+            { user ?
+            <StyledNavLink to="/profile" className="nav-item signup">
+              My Profile
+            </StyledNavLink>
+            : <StyledNavLink to="/signup" className="nav-item signup">
               Sign Up
             </StyledNavLink>
+            }
           </li>
           <li>
-            { isLoggedIn ?   
+            { user ?
             <button onClick={logout} type="submit" className="login-btn">
               Logout
             </button>
