@@ -129,11 +129,8 @@ module.exports = (db) => {
       FROM users
       WHERE email = $1 AND password = $2
       `, params)
-      .then(res => {
-        res.send({ user: res.rows[0] });
-        if (res.rows[0] === undefined) {
-          console.log("User Not Found");
-        }
+      .then((data) => {
+        res.json({ user: data.rows[0] });
       })
       .catch(error => res.status(500).json({error: error.message}));
 
