@@ -4,6 +4,8 @@ import React, {createContext, useEffect, useState} from 'react';
 const UserContext = createContext({});
 
 const UserContextProvider = (props) => {
+  const [open, setOpen] = useState(false);
+
   const [user, setUser] = useState({})
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -33,7 +35,7 @@ const UserContextProvider = (props) => {
 
  
   return (
-    <UserContext.Provider value={{user, setUser, isLoggedIn, setIsLoggedIn}}>
+    <UserContext.Provider value={{user, setUser, isLoggedIn, setIsLoggedIn, open, setOpen}}>
       {props.children}
     </UserContext.Provider>
   );

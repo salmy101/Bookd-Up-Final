@@ -39,6 +39,11 @@ export default function Nav() {
             </StyledNavLink>
           </li>
           <li>
+            <StyledNavLink to="/osearch" className="nav-item">
+              OSearch
+            </StyledNavLink>
+          </li>
+          <li>
             <StyledNavLink to="/match" className="nav-item">
               MatchBook
             </StyledNavLink>

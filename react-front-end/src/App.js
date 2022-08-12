@@ -12,6 +12,8 @@ import {
 import MainPage from "./routes/main";
 import About from "./routes/about";
 import Search from "./routes/search2";
+import OSearch from "./routes/search";
+
 import Match from "./routes/match";
 import Login from "./routes/login";
 import SignUp from "./routes/signup";
@@ -53,6 +55,7 @@ export default function App() {
           <Route path="/" element={<MainPage />}></Route>
           <Route path="/about" element={<About />}></Route>
           <Route path="/search" element={<Search />}></Route>
+          <Route path="/osearch" element={<OSearch />}></Route>
           <Route path="/match" element={<Match />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/login" element={<Login />}></Route>
