@@ -1,22 +1,23 @@
 import React, { useContext, useState } from "react";
 import {useNavigate} from "react-router-dom";
-import Axios from "axios";
+import axios from "axios";
 import "./login.scss";
 import { UserContext } from "../context/UserContext";
 
 export default function Login() {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setUser, setIsLoggedIn} = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
+
   const login = () => {
-    Axios.post("/api/users/login", {
+    axios.post("/api/users/login", {
       email: email, 
       password: password,
     })
     .then((res) => { 
-      setUser(res.data.user)
-      setIsLoggedIn(true);   
+      setUser(res.data.user);
       navigate("/profile");
     });
   };
