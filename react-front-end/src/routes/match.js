@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { cleanUpShelf, getBooksByISBN } from "../helpers/booksAPI";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Match() {
 
@@ -57,6 +59,11 @@ export default function Match() {
         </div>
       );
     });
+  }
+
+  const navigate = useNavigate()
+  const form = () => {
+    navigate("/create")
   }
 
   return (
