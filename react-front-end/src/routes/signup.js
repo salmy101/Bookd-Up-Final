@@ -23,7 +23,7 @@ export default function SignUp() {
       console.log("signup:",res)
       //for somereason the user is set to undefined so if i navigate to profile it will error out cuz an undefined user state is not valid
       setUser(res.data.user);
-      navigate("/");
+      navigate("/login");
     }).catch((err) => {
       console.log("ERROR: ====", err);
     })
