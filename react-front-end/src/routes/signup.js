@@ -29,12 +29,12 @@ export default function SignUp() {
       .catch((err) => {
         console.log("ERROR: ====", err);
       })
-      .then((res) => {
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log("ERROR: ====", err);
-      });
+      // .then((res) => {
+      //   navigate("/");
+      // })
+      // .catch((err) => {
+      //   console.log("ERROR: ====", err);
+      // });
   };
 
   return (
