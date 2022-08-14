@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import "./login.scss";
+import "./styles/login.scss";
 import { UserContext } from "../context/UserContext";
 
 export default function Login() {

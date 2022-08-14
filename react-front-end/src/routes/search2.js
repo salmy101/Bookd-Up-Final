@@ -3,7 +3,7 @@ import { cleanUpSearchResults, getBooksBySearch } from "../helpers/booksAPI";
 import { addToShelf } from "../helpers/database";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import "./search2.scss";
+import "./styles/search2.scss";
 
 export default function Search() {
   const { user } = useContext(UserContext);

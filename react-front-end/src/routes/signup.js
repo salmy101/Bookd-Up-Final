@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import Axios from "axios";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import "./signup.scss";
+import "./styles/signup.scss";
 
 export default function SignUp() {
   const [emailAtReg, setEmailAtReg] = useState("");

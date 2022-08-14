@@ -88,23 +88,23 @@ $icon-size: 85px;
 .skip {
   width: $icon-size;
   height: $icon-size;
-  background-image: url('../assets/images/skip-before.png');
+  background-image: url('../../assets/images/skip-before.png');
   background-size: contain;
   cursor: pointer;
 }
 
 .skip:hover {
-  background-image: url('../assets/images/skip-after.png');
+  background-image: url('../../assets/images/skip-after.png');
 }
 
 .like {
   width: $icon-size;
   height: $icon-size;
-  background-image: url('../assets/images/like-before.png');
+  background-image: url('../../assets/images/like-before.png');
   background-size: contain;
   cursor: pointer;
 }
 
 .like:hover {
-  background-image: url('../assets/images/like-after.png');
+  background-image: url('../../assets/images/like-after.png');
 }

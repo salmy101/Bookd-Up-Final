@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { cleanUpShelf, getBooksByISBN } from "../helpers/booksAPI";
 import axios from 'axios';
-import "./profile.scss"
+import "./styles/profile.scss"
 import { useNavigate } from "react-router-dom";
 
 export default function Profile() {

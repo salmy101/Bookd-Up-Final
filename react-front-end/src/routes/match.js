@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Book3D from '../components/Book3D';
 import { getBookBySelfLink, getBooksLinksBySubject } from "../helpers/booksAPI";
 import { genres } from "../helpers/genres";
-import './match.scss';
+import './styles/match.scss';
 
 export default function Match() {
 

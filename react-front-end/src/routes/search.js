@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from "react";
 import BookCard from "../components/BookCard";
-import "./search.scss";
+import "./styles/search.scss";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
