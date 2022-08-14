@@ -74,7 +74,7 @@ export default function SignUp() {
 
           <div className="form-container">
             <input 
-            type="text" 
+            type="password" 
             name="password" 
             placeholder="Password"
             onChange={(e) => {

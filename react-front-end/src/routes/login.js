@@ -48,7 +48,7 @@ export default function Login() {
 
           <div className="form-container">
             <input
-              type="text"
+              type="password"
               name="password"
               value={password}
               placeholder="Password"
