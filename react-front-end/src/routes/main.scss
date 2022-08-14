@@ -96,6 +96,10 @@ body {
   overflow-x: scroll;
 }
 
+.popular-bookclubs-card:hover {
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
 .popular-bookclubs-container::-webkit-scrollbar {
   display: none; /* for Chrome, Safari, and Opera */
 }
