@@ -45,6 +45,10 @@ export default function Profile() {
     });
   }, []);
 
+  const create = () => {
+    navigate("/create")
+  }
+  
   const getClubs = (clubs) => {
     return clubs.map(club => {
       return (
@@ -75,6 +79,9 @@ export default function Profile() {
       <h1>{user && user.first_name} {user && user.last_name}</h1>
       <h2>Book Clubs:</h2>
       <h3>Created clubs:</h3>
+      <div className="cta-box">
+            <button onClick={create} className="cta-button">Start a Bookclub</button>
+          </div>
       {clubs.created && clubs.created.length > 0 && getClubs(clubs.created)}
       <h3>Joined clubs:</h3>
       {clubs.joined && clubs.joined.length > 0 && getClubs(clubs.joined)}

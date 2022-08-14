@@ -46,14 +46,15 @@ export default function Create() {
           </div>
 
           <div className="form-container">
-            <input
+            <textarea
+            className="textarea"
               type="text"
               name="description"
               placeholder="What Is Your BookClub About?"
               onChange={(e) => {
                 setClubDescription(e.target.value);
               }}
-            ></input>
+            ></textarea>
           </div>
         </form>
 
