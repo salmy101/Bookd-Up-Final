@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { cleanUpShelf, getBooksByISBN } from "../helpers/booksAPI";
+import { useParams } from 'react-router-dom';
 
-export default function About() {
+
+export default function Club() {
+  const { id } = useParams()
+  console.log(id)
 
   const [bookclub, setBookclub] = useState({});
   const [currentBook, setCurrentBook] = useState([]);
   const [finishedBooks, setFinishedBooks] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/clubs/2')
+    axios.get(`/api/clubs/${id}`)
     .then(res => {
       setBookclub(res.data);
 
@@ -45,7 +49,7 @@ export default function About() {
 
   return (
     <div style={{marginTop: '100px', marginLeft: '50px', marginBottom: '50px'}}>
-      <img src="images/default-club.png" alt="Default Club" style={{borderRadius: 20}}/>
+      <img src="../images/default-club.png" alt="Default Club" style={{borderRadius: 20}}/>
       <h1>{bookclub.club && bookclub.club.name}</h1>
       <p>{bookclub.club && <em>{bookclub.club.description}</em>}</p>
       <h4>{bookclub.creator && `Created by: ${bookclub.creator.first_name} ${bookclub.creator.last_name}`}</h4>

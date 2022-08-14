@@ -10,7 +10,7 @@ import {
 
 //pages
 import MainPage from "./routes/main";
-import About from "./routes/about";
+import Club from "./routes/club";
 import Search from "./routes/search2";
 import OSearch from "./routes/search";
 
@@ -22,13 +22,14 @@ import Create from "./routes/create";
 
 export default function App() {
 
+
   return (
       <UserContextProvider>
       <Router>
         <Nav />
         <Routes>
           <Route path="/" element={<MainPage />}></Route>
-          <Route path="/about" element={<About />}></Route>
+          <Route path="/club/:id" element={<Club />}></Route>
           <Route path="/search" element={<Search />}></Route>
           <Route path="/osearch" element={<OSearch />}></Route>
           <Route path="/match" element={<Match />}></Route>
