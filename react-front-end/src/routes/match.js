@@ -1,80 +1,89 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
-import { cleanUpShelf, getBooksByISBN } from "../helpers/booksAPI";
+import Book3D from '../components/Book3D';
+import { getBookBySelfLink, getBooksLinksBySubject } from "../helpers/booksAPI";
+import { genres } from "../helpers/genres";
+import './match.scss';
 
 export default function Match() {
 
-  const [user, setUser] = useState({});
-  const [clubs, setClubs] = useState({});
-  const [shelves, setShelves] = useState({});
+  const [genre, setGenre] = useState();
+  const [results, setResults] = useState();
+  const [book, setBook] = useState();
+  const [bookIndex, setBookIndex] = useState();
 
   useEffect(() => {
-    Promise.all([
-      axios.get('/api/users/1'),
-      axios.get('/api/users/1/clubs'),
-      axios.get('/api/users/1/shelves')
-    ])
-    .then(res => {
-      setUser(res[0].data.user);
-      setClubs(res[1].data);
+    console.log('Genre: ', genre);
+  }, [genre]);
 
-      // Send ISBNs to helper function and get back promises to get data from book API
-      Promise.all([
-        getBooksByISBN(res[2].data.current),
-        getBooksByISBN(res[2].data.want),
-        getBooksByISBN(res[2].data.have)
-      ])
-      .then(res => {
-        // Clean up the returned book data before setting state
-        setShelves({
-          current: cleanUpShelf(res[0]),
-          want: cleanUpShelf(res[1]),
-          have: cleanUpShelf(res[2])
-        })
-      });
-    });
-  }, []);
+  useEffect(() => {
+    console.log('Book: ', book);
+  }, [book])
 
-  const getClubs = (clubs) => {
-    return clubs.map(club => {
-      return (
-        <div key={club.id} style={{border: '1px solid black', width: '500px'}}>
-          <img src="images/default-club.png" alt="Default Club" style={{borderRadius: 10, width: '50px'}}/>
-          <h4>{club.name}</h4>
-          <p>{club.description}</p>
-        </div>
-      )
-    })
+  useEffect(() => {
+    console.log('Book Index: ', bookIndex);
+  }, [bookIndex]);
+
+  useEffect(() => {
+    console.log('Results: ', results);
+  }, [results]);
+
+  const getNewBook = () => {
+    setBookIndex(prev => prev + 1);
+    if (results) {
+      getBookBySelfLink(results[bookIndex].selfLink)
+      .then(res => setBook(res.data.volumeInfo));
+    }
   }
 
-  const getShelfBooks = (shelf) => {
-    return shelf.map((book, index) => {
+  const handlePickGenre = (category) => {
+    setGenre(category);
+    setBookIndex(0);
+    getBooksLinksBySubject(category)
+    .then(res => {
+      setResults(res.data.items);
+      getNewBook();
+    });
+  }
+
+  const getGenres = (genres) => {
+    return genres.map((category, index) => {
       return (
-        <div key={index} style={{border: '1px solid black', width: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-          <div>{<img src={book.imageLinks.thumbnail} alt="Shelf Book"/>}</div>
-          <p><b>{book.title}</b></p>
-          <p>{`by ${book.authors[0]}`}</p>
+        <div
+          key={index}
+          className={`genre ${genre === category && 'selected'}`}
+          onClick={() => handlePickGenre(category)}
+        >
+          {category}
         </div>
       );
     });
   }
 
   return (
-    <div style={{marginTop: '100px', marginLeft: '50px', marginBottom: '50px'}}>
-      <img src="images/default-profile.png" alt="Default Profile" style={{borderRadius: '50%', width: '200px'}}/>
-      <h1>{user.first_name} {user.last_name}</h1>
-      <h2>Book Clubs:</h2>
-      <h3>Created clubs:</h3>
-      {clubs.created && clubs.created.length > 0 && getClubs(clubs.created)}
-      <h3>Joined clubs:</h3>
-      {clubs.joined && clubs.joined.length > 0 && getClubs(clubs.joined)}
-      <h2>Bookshelves:</h2>
-      <h3>Currently reading:</h3>
-      {(shelves.current && shelves.current.length > 0 && getShelfBooks(shelves.current)) || 'Not currently reading a book'}
-      <h3>Want to read:</h3>
-      {(shelves.want && shelves.want.length > 0 && getShelfBooks(shelves.want)) || 'No books you want to read yet'}
-      <h3>Finished reading:</h3>
-      {(shelves.have && shelves.want.have > 0 && getShelfBooks(shelves.have)) || "No finished books yet"}
+    <div className="main">
+      <div className="genres-container">
+        Pick a genre:
+        {getGenres(Object.keys(genres))}
+      </div>
+      <div className="matchbook-container">
+        <div className="canvas-container">
+          {/* <Book3D coverImage={(book && book.imageLinks && book.imageLinks.thumbnail) || 'images/no-book-thumbnail.png'} /> */}
+          <Book3D coverImage={'images/no-book-thumbnail.png'} pages={(book && book.pageCount) || 300} />
+        </div>
+          <header className="basic-info-container">
+            <div className="basic-info-title">{book && book.title}</div>
+            <div>📖 {(book && book.pageCount && `${book.pageCount} pages`) || 'No pages'}</div>
+            <div>🗓 {(book && book.publishedDate && book.publishedDate.split('-')[0]) || 'No year'}</div>
+            <div>⭐️ {(book && book.averageRating) || 'No reviews'} {book && book.ratingsCount && `(${book.ratingsCount} reviews)`}</div>
+            <div>👤 {(book && book.authors && book.authors[0]) || 'No author'}</div>
+            <div style={{marginTop: 10}}>Description</div>
+            <div className="basic-info-description" dangerouslySetInnerHTML={{__html: (book && book.description) || 'No description'}}></div>
+          </header>
+          <footer className="icons-container">
+            <div className="skip" onClick={() => getNewBook()}></div>
+            <div className="like"></div>
+          </footer>
+      </div>
     </div>
   );
-};
+}

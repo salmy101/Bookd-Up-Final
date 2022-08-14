@@ -111,7 +111,10 @@ module.exports = (db) => {
       INSERT INTO users (first_name, last_name, email, password)
       VALUES ($1, $2, $3, $4)
     `, params)
-      .then(() =>res.json({message: 'user created successfully'}))
+      .then((data) =>{
+      console.log(data)
+      res.json({message: 'user created successfully'})
+     })
       .catch(error => res.status(500).json({error: error.message}));
       
   });
