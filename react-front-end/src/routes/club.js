@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { cleanUpShelf, getBooksByISBN } from "../helpers/booksAPI";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 export default function Club() {
@@ -16,6 +16,7 @@ export default function Club() {
     axios.get(`/api/clubs/${id}`)
     .then(res => {
       setBookclub(res.data);
+      console.log(bookclub);
 
       // Send ISBNs to helper function and get back promises to get data from book API
       Promise.all([
@@ -24,6 +25,7 @@ export default function Club() {
       ])
       .then(res => {
         setCurrentBook(cleanUpShelf(res[0]));
+        console.log(currentBook);
         setFinishedBooks(cleanUpShelf(res[1]));
       });
     })
@@ -47,6 +49,19 @@ export default function Club() {
     });
   }
 
+
+  const finish = () => {
+    axios.post(`/api/clubs/${bookclub.club.id}/complete`, {
+      isbn: currentBook[0].industryIdentifiers[0].identifier
+    })
+    .then((res) => console.log("book moved to finish"));
+  }
+
+  const navigate = useNavigate()
+  const add = () => {
+    navigate("/search")
+  }
+
   return (
     <div style={{marginTop: '100px', marginLeft: '50px', marginBottom: '50px'}}>
       <img src="../images/default-club.png" alt="Default Club" style={{borderRadius: 20}}/>
@@ -61,6 +76,15 @@ export default function Club() {
         <p><b>{currentBook.length > 0 && currentBook[0].title}</b></p>
         <p>{(currentBook.length > 0 && `by ${currentBook[0].authors[0]}`) || 'Not currently reading a book'}</p>
       </div>
+      
+      {currentBook.length > 0 ?
+      <div className="cta-box">
+            <button onClick={finish} className="cta-button"> Finished Reading?</button>
+          </div>
+           :<div className="cta-box">
+            <button onClick={add} className="cta-button"> Pick a new book?</button>
+          </div>
+      }
       <h3>Finished reading:</h3>
       {(finishedBooks.length > 0 && getFinishedBooks(finishedBooks)) || 'No finished books'}
     </div>
