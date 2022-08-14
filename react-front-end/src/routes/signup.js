@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import Axios from "axios"
+import Axios from "axios";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import "./signup.scss";
@@ -14,21 +14,28 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   const register = () => {
-    Axios.post('/api/users', {
-      email: emailAtReg, 
+    Axios.post("/api/users", {
+      email: emailAtReg,
       password: passwordAtReg,
       first_name: firstName,
-      last_name: lastName
-    }).then((res) => {
-      console.log("signup:",res)
-      //for somereason the user is set to undefined so if i navigate to profile it will error out cuz an undefined user state is not valid
-      setUser(res.data.user);
-      navigate("/login");
-    }).catch((err) => {
-      console.log("ERROR: ====", err);
+      last_name: lastName,
     })
-  }
-
+      .then((res) => {
+        console.log("signup:", res);
+        //for somereason the user is set to undefined so if i navigate to profile it will error out cuz an undefined user state is not valid
+        setUser(res.data.user);
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.log("ERROR: ====", err);
+      })
+      .then((res) => {
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log("ERROR: ====", err);
+      });
+  };
 
   return (
     <section className="sign-up-section">
@@ -37,38 +44,37 @@ export default function SignUp() {
       </div>
 
       <div className="form-box">
-        <form onSubmit={(event) => event.preventDefault()} >
-
-        <div className="form-container">
-            <input 
-            type="text" 
-            name="first_name" 
-            placeholder="First Name"
-            onChange={(e) => {
-              setFirstName(e.target.value);
-            }}
-            ></input>
-          </div>
-          
-        <div className="form-container">
-            <input 
-            type="text" 
-            name="last_name" 
-            placeholder="Last Name"
-            onChange={(e) => {
-              setLastName(e.target.value);
-            }}
+        <form onSubmit={(event) => event.preventDefault()}>
+          <div className="form-container">
+            <input
+              type="text"
+              name="first_name"
+              placeholder="First Name"
+              onChange={(e) => {
+                setFirstName(e.target.value);
+              }}
             ></input>
           </div>
 
           <div className="form-container">
-            <input 
-            type="text" 
-            name="email" 
-            placeholder="Email"
-            onChange={(e) => {
-              setEmailAtReg(e.target.value);
-            }}
+            <input
+              type="text"
+              name="last_name"
+              placeholder="Last Name"
+              onChange={(e) => {
+                setLastName(e.target.value);
+              }}
+            ></input>
+          </div>
+
+          <div className="form-container">
+            <input
+              type="text"
+              name="email"
+              placeholder="Email"
+              onChange={(e) => {
+                setEmailAtReg(e.target.value);
+              }}
             ></input>
           </div>
 
@@ -84,8 +90,11 @@ export default function SignUp() {
           </div>
         </form>
 
-        <button onClick={register} className="signup-btn"> Sign Up</button>
+        <button onClick={register} className="signup-btn">
+          {" "}
+          Sign Up
+        </button>
       </div>
     </section>
   );
-};
+}
