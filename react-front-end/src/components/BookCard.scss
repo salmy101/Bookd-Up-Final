@@ -1,4 +1,4 @@
-.book-container {
+.book-card-container {
   width: 200px;
   height: 300px;
   margin: 20px;
@@ -7,37 +7,36 @@
   cursor: pointer;
 }
 
-.book-container:hover {
+.book-card-container:hover {
   opacity: 1;
 }
 
-.book-details-box {
+.book-card-details-box {
   padding: 15px 15px 5px;
   border: 0.5px solid #212529;
   background-color: #212529;
   color: #fff;
 }
 
-.book-image {
+.book-card-image {
   width: 200px;
   height: 300px;
   border: 0.5px solid #212529;
 }
 
-.book-title {
+.book-card-title {
   height: 40px;
   margin-bottom: 10px;
   overflow: hidden;
 }
 
-.book-author {
+.book-card-author {
   height: 40px;
   margin-bottom: 15px;
 }
 
-.book-year,
-.book-isbn,
-.book-author {
+.book-card-year,
+.book-card-author {
   padding: 0;
   margin: 5px;
 }

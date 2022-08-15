@@ -7,16 +7,16 @@ export default function BookCard(props) {
 
 
   return (
-    <div className="book-container">
-      <img className="book-image" src={thumbnail} alt="Result Book"/>
-      <div className="book-details-box">
-        <div className="book-title">
+    <div className="book-card-container">
+      <img className="book-card-image" src={thumbnail} alt="Result Book"/>
+      <div className="book-card-details-box">
+        <div className="book-card-title">
           <b>{title}</b>
         </div>
-        <div className="book-year">
+        <div className="book-card-year">
           {year}
         </div>
-        <div className="book-author">{author}</div>
+        <div className="book-card-author">{author}</div>
       </div>
     </div>
   );
