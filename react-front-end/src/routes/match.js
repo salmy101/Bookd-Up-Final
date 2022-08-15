@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Book3D from '../components/Book3D';
 import { getBookBySelfLink, getBooksLinksBySubject } from "../helpers/booksAPI";
 import { genres } from "../helpers/genres";
@@ -10,22 +10,6 @@ export default function Match() {
   const [results, setResults] = useState();
   const [book, setBook] = useState();
   const [bookIndex, setBookIndex] = useState();
-
-  useEffect(() => {
-    console.log('Genre: ', genre);
-  }, [genre]);
-
-  useEffect(() => {
-    console.log('Book: ', book);
-  }, [book])
-
-  useEffect(() => {
-    console.log('Book Index: ', bookIndex);
-  }, [bookIndex]);
-
-  useEffect(() => {
-    console.log('Results: ', results);
-  }, [results]);
 
   const getNewBook = () => {
     setBookIndex(prev => prev + 1);
@@ -67,7 +51,7 @@ export default function Match() {
       </div>
       <div className="matchbook-container">
         <div className="canvas-container">
-          {/* <Book3D coverImage={(book && book.imageLinks && book.imageLinks.thumbnail) || 'images/no-book-thumbnail.png'} /> */}
+          {/* <Book3D coverImage={(book && book.imageLinks && book.imageLinks.thumbnail) || 'images/no-book-thumbnail.png'} pages={(book && book.pageCount) || 300} /> */}
           <Book3D coverImage={'images/no-book-thumbnail.png'} pages={(book && book.pageCount) || 300} />
         </div>
           <header className="basic-info-container">
