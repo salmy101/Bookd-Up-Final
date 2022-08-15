@@ -20,6 +20,7 @@ export default function Search() {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState('');
   const [result, setResult] = useState([]);
+  const [bookSelfLink, setBookSelfLink] = useState(null);
 
   const startSearch = () => {
     getBooksBySearch(search, page, filter).then((res) => {
@@ -42,6 +43,8 @@ export default function Search() {
         title={result.title}
         year={result.publishedDate.split("-")[0]}
         author={result && result.authors && result.authors[0]}
+        selfLink={result && result.selfLink}
+        setBookSelfLink={setBookSelfLink}
         />
       );
     });
@@ -50,7 +53,7 @@ export default function Search() {
   return (
     <>
       <div className="search-container">
-        <h2>Find a book:</h2>
+        <h2 style={{marginRight: '140px'}}>Find a book:</h2>
         <form className="search-form" onSubmit={event => event.preventDefault()} autoComplete="off">
           <input placeholder="Search" value={search} onChange={event => setSearch(event.target.value)}/>
           <div className="button-box">
@@ -78,7 +81,7 @@ export default function Search() {
           Next
         </button>
       </div>
-      <BookCardFull selfLink={'https://www.googleapis.com/books/v1/volumes/FY_HWAcm10MC'} />
+      {bookSelfLink && <BookCardFull setBookSelfLink={setBookSelfLink} selfLink={bookSelfLink} />}
     </>
   );
 }
