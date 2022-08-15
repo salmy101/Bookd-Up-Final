@@ -25,13 +25,25 @@ export function cleanUpShelf(shelf) {
 
 export function getBooksBySearch(search, page) {
   const searchQuery = 'https://www.googleapis.com/books/v1/volumes?q=';
-  const startIndex = `&startIndex=${(page - 1) * 3}`
+  const startIndex = `&startIndex=${(page - 1) * 3}`;
   const resultFields = '&fields=items(volumeInfo/title,volumeInfo(authors),volumeInfo/imageLinks/thumbnail,volumeInfo/publishedDate,volumeInfo/industryIdentifiers)';
   console.log(searchQuery + search + startIndex + '&maxResults=3' + resultFields);
 
-  return axios.get(searchQuery + search + startIndex + '&maxResults=3' + resultFields);
+  return axios.get(searchQuery + search + startIndex + '&maxResults=12' + resultFields);
 }
 
 export function cleanUpSearchResults(result) {
   return result.map(item => item.volumeInfo);
+}
+
+// Get multiple book results by subject (only their selfLink that lead to their own page)
+export function getBooksLinksBySubject(genre) {
+  const searchQuery = 'https://www.googleapis.com/books/v1/volumes?q=subject:';
+  const resultsFields = '&fields=items(selfLink)';
+  return axios.get(`${searchQuery}"${genre}"${resultsFields}${'&maxResults=15'}`);
+}
+
+// Returns a book's full page of information using a selfLink
+export function getBookBySelfLink(link) {
+  return axios.get(link);
 }

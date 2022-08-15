@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700&display=swap");
+
+/* colors: #212529, #ced4da, #f8f9fa, #7f7f7f */
+
+* {
+  box-sizing: border-box;
+  /* outline: 1px solid red; */
+}
+
+body {
+  margin: auto;
+  padding: auto;
+  font-family: "Montserrat", sans-serif;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-top: 100px;
+}
+
+.book-container {
+  margin: 20px;
+  margin-bottom: 350px;
+  width: 300px;
+  height: 300px;
+}
+
+.book-details-box {
+  padding: 20px;
+  border: 0.5px solid #212529;
+  background-color: #212529;
+  color: #fff;
+}
+
+.book-image {
+  border: 0.5px solid #212529;
+  height: 400px;
+  width: 300px;
+}
+
+.book-title {
+  margin-bottom: 20px;
+}
+.book-year,
+.book-isbn,
+.book-author {
+  padding: 0;
+  margin: 5px;
+}
+
+.book-author {
+  margin-bottom: 15px;
+}
+
+.more-details {
+  background: none;
+  border: none;
+  color: #7f7f7f;
+  cursor: pointer;
+  transition: 0.8s;
+}
+
+.more-details:hover {
+  color: #fff;
+  zoom: 1.08;
+}
+
+.search-container {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+  margin-left: 50px;
+  margin-bottom: 100px;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: -50px;
+}
+
+.search-form input {
+  width: 900px;
+}
+
+.search-form button {
+  background-color: #212529;
+  color: #fff;
+  width: 90px;
+  height: 40px;
+  border: none;
+}
+
+.button-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-buttons {
+  margin: 0px 20px;
+  background-color: #212529;
+  color: #fff;
+  width: 90px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+}
+
+.pagination-btn {
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+}

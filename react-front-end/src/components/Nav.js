@@ -6,17 +6,15 @@ import styled from "styled-components";
 import { UserContext } from "../context/UserContext";
 
 export default function Nav() {
-  
   const { user, setUser } = useContext(UserContext);
 
   const navigate = useNavigate();
 
   const logout = () => {
-    localStorage.removeItem('current_user');
+    localStorage.removeItem("current_user");
     setUser(null);
     navigate("/");
   };
-
 
   return (
     <nav className="nav">
@@ -42,24 +40,26 @@ export default function Nav() {
             </StyledNavLink>
           </li>
           <li>
-            { user ?
-            <StyledNavLink to="/profile" className="nav-item signup">
-              My Profile
-            </StyledNavLink>
-            : <StyledNavLink to="/signup" className="nav-item signup">
-              Sign Up
-            </StyledNavLink>
-            }
+            {user ? (
+              <StyledNavLink to="/profile2" className="nav-item signup">
+                My Profile
+              </StyledNavLink>
+            ) : (
+              <StyledNavLink to="/signup" className="nav-item signup">
+                Sign Up
+              </StyledNavLink>
+            )}
           </li>
           <li>
-            { user ?
-            <button onClick={logout} type="submit" className="login-btn">
-              Logout
-            </button>
-            : <StyledNavLink to="/login" className="nav-item login">
-              Login
-            </StyledNavLink>
-            }
+            {user ? (
+              <button onClick={logout} type="submit" className="login-btn">
+                Logout
+              </button>
+            ) : (
+              <StyledNavLink to="/login" className="nav-item login">
+                Login
+              </StyledNavLink>
+            )}
           </li>
         </ul>
       </div>

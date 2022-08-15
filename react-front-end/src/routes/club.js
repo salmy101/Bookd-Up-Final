@@ -2,23 +2,27 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { cleanUpShelf, getBooksByISBN } from "../helpers/booksAPI";
 import { UserContext } from "../context/UserContext";
-import { useNavigate } from "react-router-dom";
-import AdminComponent from "./admin";
+import { useNavigate, useParams } from 'react-router-dom';
 
-export default function About() {
+
+export default function Club() {
+  const { id } = useParams()
+  console.log(id)
+
   const [bookclub, setBookclub] = useState({});
   const [currentBook, setCurrentBook] = useState([]);
   const [finishedBooks, setFinishedBooks] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false)
   const { user } = useContext(UserContext);
 
-  useEffect(() => {
-    axios.get(`/api/clubs/${user && user.id}`).then((res) => {
+  useEffect(() => {  
+    axios.get(`/api/clubs/${id}`)
+    .then(res => {
       setBookclub(res.data);
+      console.log(bookclub);
       if (user.id === bookclub.creator.id) {
         setIsAdmin(true)
          };
-     
 
       // Send ISBNs to helper function and get back promises to get data from book API
       Promise.all([
@@ -75,28 +79,17 @@ export default function About() {
     })
     .then((res) => { //clicking finished will remove the current read for BC to the finished
       console.log(res)
-      navigate("/about")
     })
   }
-
-  const navigate = useNavigate();
+  
+  const navigate = useNavigate()
   const add = () => {
     navigate("/search")
   }
 
-  console.log(bookclub)
- 
-
   return (
-    
-    <div
-      style={{ marginTop: "100px", marginLeft: "50px", marginBottom: "50px" }}
-    >
-      <img
-        src="images/default-club.png"
-        alt="Default Club"
-        style={{ borderRadius: 20 }}
-      />
+    <div style={{marginTop: '100px', marginLeft: '50px', marginBottom: '50px'}}>
+      <img src="../images/default-club.png" alt="Default Club" style={{borderRadius: 20}}/>
       <h1>{bookclub.club && bookclub.club.name}</h1>
       <p>{bookclub.club && <em>{bookclub.club.description}</em>}</p>
       <h4>
