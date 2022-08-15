@@ -29,7 +29,7 @@ export function getBooksBySearch(search, page) {
   const resultFields = '&fields=items(volumeInfo/title,volumeInfo(authors),volumeInfo/imageLinks/thumbnail,volumeInfo/publishedDate,volumeInfo/industryIdentifiers)';
   console.log(searchQuery + search + startIndex + '&maxResults=3' + resultFields);
 
-  return axios.get(searchQuery + search + startIndex + '&maxResults=3' + resultFields);
+  return axios.get(searchQuery + search + startIndex + '&maxResults=12' + resultFields);
 }
 
 export function cleanUpSearchResults(result) {
