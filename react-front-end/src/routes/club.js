@@ -20,10 +20,7 @@ export default function Club() {
     .then(res => {
       setBookclub(res.data);
       console.log(bookclub);
-      console.log("user id", user.id, "bookclub.creator.id", bookclub.creator.id);
-      if (user.id === bookclub.creator.id) {
-        setIsAdmin(true)
-         };
+      console.log(user)
 
       // Send ISBNs to helper function and get back promises to get data from book API
       Promise.all([
@@ -37,6 +34,12 @@ export default function Club() {
       });
     });
   }, []);
+
+    useEffect(() => {
+      if (bookclub.creator && user.id == bookclub.creator.id) {
+        setIsAdmin(true)
+         };
+    }, [bookclub])
 
   // Return <li>'s made from members array
   const getMembers = (members) => {
