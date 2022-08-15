@@ -13,8 +13,7 @@ export default function Create() {
   const navigate = useNavigate();
 
   const create = () => {
-    axios
-      .post("/api/clubs", {
+    axios.post("/api/clubs", {
         user_id: user.id,
         name: clubName,
         description: clubDescription,
@@ -36,9 +35,10 @@ export default function Create() {
         <form onSubmit={(event) => event.preventDefault()}>
           <div className="form-container">
             <input
+              className="create-input"
               type="text"
               name="name"
-              placeholder="Name Your BookClub."
+              placeholder="Name your bookclub"
               onChange={(e) => {
                 setClubName(e.target.value);
               }}
@@ -47,10 +47,10 @@ export default function Create() {
 
           <div className="form-container">
             <textarea
-            className="textarea"
+              className="create-textarea"
               type="text"
               name="description"
-              placeholder="What Is Your BookClub About?"
+              placeholder="What's your bookclub about?"
               onChange={(e) => {
                 setClubDescription(e.target.value);
               }}

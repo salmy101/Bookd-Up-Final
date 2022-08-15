@@ -13,7 +13,7 @@ body {
 .login-header-box {
   display: flex;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 175px;
 }
 
 .form-box {
@@ -23,7 +23,7 @@ body {
   flex-direction: column;
 }
 
-input {
+.login-input {
   width: 400px;
   height: 40px;
   padding: 10px;
