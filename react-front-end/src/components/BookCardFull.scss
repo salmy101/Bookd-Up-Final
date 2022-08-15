@@ -79,15 +79,15 @@
 
 .book-full-cover {
   width: 280px;
-  height: 450px;
+  height: 435px;
   margin-top: 30px;
   margin-bottom: 10px;
 }
 
-.add-to-btns {
+.add-to-btn {
   width: 275px;
   background-color: #212529;
-  padding: 3px;
+  padding: 7px;
   margin-top: 5px;
   cursor: default;
 
@@ -96,7 +96,38 @@
   font-weight: 500;
 }
 
-.add-to-btns:hover {
+.add-to-btn:hover {
+  background-color: rgb(255, 183, 0);
+  color: black;
+}
+
+.shelf-btns-container {
+  height: 0px;
+  position: absolute;
+  margin-top: 410px;
+  overflow: hidden;
+  transition: height 0.2s;
+}
+
+.shelf-btns-container--show {
+  height: 85px;
+  position: absolute;
+  margin-top: 410px;
+  overflow: hidden;
+  transition: height 0.5s;
+}
+
+.shelf-btn {
+  width: 275px;
+  background-color: #2a2e33;
+  color: white;
+  text-align: center;
+  padding: 3px;
+  cursor: default;
+  margin-top: 3px;
+}
+
+.shelf-btn:hover {
   background-color: rgb(255, 183, 0);
   color: black;
 }
