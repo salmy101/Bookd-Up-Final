@@ -1,103 +1,84 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useState } from "react";
+import BookCard from "../components/BookCard";
+import BookCardFull from "../components/BookCardFull";
 import { cleanUpSearchResults, getBooksBySearch } from "../helpers/booksAPI";
 import { addToShelf } from "../helpers/database";
-import { UserContext } from "../context/UserContext";
-import { useNavigate } from "react-router-dom";
 import "./styles/search2.scss";
 
 export default function Search() {
-  const { user } = useContext(UserContext);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, []);
+  // const { user } = useContext(UserContext);
+  // const navigate = useNavigate();
 
-  const [search, setSearch] = useState("");
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate("/login");
+  //   }
+  // }, []);
+
+  const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
+  const [filter, setFilter] = useState('');
   const [result, setResult] = useState([]);
 
   const startSearch = () => {
-    getBooksBySearch(search, page).then((res) => {
+    getBooksBySearch(search, page, filter).then((res) => {
       setResult(cleanUpSearchResults(res.data.items));
     });
   };
 
+  useEffect(() => {
+    if (search){
+      startSearch();
+    }
+  }, [page]);
+
   const getResults = (results) => {
     return results.map((result, index) => {
       return (
-        <div
-          className="book-container"
-          key={index}
-          onClick={() =>
-            addToShelf(1, result.industryIdentifiers[0].identifier)
-          }
-        >
-          <div className="image-box">
-            {
-              <img
-                className="book-image"
-                src={
-                  (result.imageLinks && result.imageLinks.thumbnail) ||
-                  "images/no-book-thumbnail.png"
-                }
-                alt="Current Book"
-              />
-            }
-          </div>
-
-          <div className="book-details-box">
-            <p className="book-title">
-              <b>{result.title}</b>
-            </p>
-            <p className="book-year">
-              Year of Publication: {result.publishedDate.split("-")[0]}
-            </p>
-            <p className="book-isbn">
-              ISBN: {result.industryIdentifiers[0].identifier}
-            </p>
-            <p className="book-author">Author: {` ${result.authors[0]}`}</p>
-            <button className="more-details"> See more </button>
-          </div>
-        </div>
+      <BookCard
+        key={index}
+        thumbnail={(result.imageLinks && result.imageLinks.thumbnail) || "images/no-book-thumbnail.png"}
+        title={result.title}
+        year={result.publishedDate.split("-")[0]}
+        author={result && result.authors && result.authors[0]}
+        />
       );
     });
   };
 
   return (
-    <div className="search-container">
-      <h2>Search Bookd-Up</h2>
-      <form
-        className="search-form"
-        autoComplete="off"
-        onSubmit={(event) => event.preventDefault()}
-      >
-        <input
-          placeholder="Search"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-        />
-        <div className="button-box">
-          <button className="search-buttons" onClick={startSearch}>
-            Search
-          </button>
+    <>
+      <div className="search-container">
+        <h2>Find a book:</h2>
+        <form className="search-form" onSubmit={event => event.preventDefault()} autoComplete="off">
+          <input placeholder="Search" value={search} onChange={event => setSearch(event.target.value)}/>
+          <div className="button-box">
+            <button className="search-buttons" onClick={startSearch}>
+              Search
+            </button>
+          </div>
+        </form>
+        <div className="filters-container">
+          <input defaultChecked type="radio" name="filter" onClick={() => setFilter('')}/>All&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="filter" onClick={() => setFilter('intitle:')}/>Title&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="filter" onClick={() => setFilter('subject:')}/>Genre&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="filter" onClick={() => setFilter('inauthor:')}/>Author&nbsp;&nbsp;&nbsp;&nbsp;
         </div>
-      </form>
+      </div>
 
-      <div className="container">{result.length > 0 && getResults(result)}</div>
-      <div className="pagination-btn">
-        <button
-          className="search-buttons"
-          onClick={() => (page > 1 ? setPage(page - 1) : null)}
-        >
+      <div className="results-container">{result.length > 0 && getResults(result)}</div>
+      
+      <div className={`pagination-btn${result.length > 0 ? '--show' : ''}`}>
+        <button className="search-buttons" onClick={() => page > 1 ? setPage(page - 1) : null}>
           Prev
         </button>
+        <span style={{fontWeight: '800'}}>{page}</span>
         <button className="search-buttons" onClick={() => setPage(page + 1)}>
           Next
         </button>
       </div>
-    </div>
+      <BookCardFull />
+    </>
   );
 }
