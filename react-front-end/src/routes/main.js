@@ -1,13 +1,12 @@
 import React from "react";
 import "./main.scss";
-import {useNavigate} from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 export default function MainPage() {
   const navigate = useNavigate();
   const signup = () => {
-    navigate("/signup")
-  }
+    navigate("/signup");
+  };
 
   return (
     <section className="main-contianer">
@@ -25,7 +24,9 @@ export default function MainPage() {
             </span>
           </div>
           <div className="cta-box">
-            <button onClick={signup} className="cta-button">Start a Bookclub</button>
+            <button onClick={signup} className="cta-button">
+              Start a Bookclub
+            </button>
           </div>
         </div>
         <div className="hero-image-box">
@@ -46,4 +47,4 @@ export default function MainPage() {
       </div>
     </section>
   );
-};
+}
