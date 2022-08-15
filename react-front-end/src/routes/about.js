@@ -3,17 +3,22 @@ import axios from "axios";
 import { cleanUpShelf, getBooksByISBN } from "../helpers/booksAPI";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import AdminComponent from "./admin";
 
 export default function About() {
   const [bookclub, setBookclub] = useState({});
   const [currentBook, setCurrentBook] = useState([]);
   const [finishedBooks, setFinishedBooks] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false)
   const { user } = useContext(UserContext);
 
   useEffect(() => {
     axios.get(`/api/clubs/${user && user.id}`).then((res) => {
       setBookclub(res.data);
-      console.log("the Bookclub", bookclub);
+      if (user.id === bookclub.creator.id) {
+        setIsAdmin(true)
+         };
+     
 
       // Send ISBNs to helper function and get back promises to get data from book API
       Promise.all([
@@ -23,6 +28,7 @@ export default function About() {
         setCurrentBook(cleanUpShelf(res[0]));
         console.log("current book", currentBook);
         setFinishedBooks(cleanUpShelf(res[1]));
+        
       });
     });
   }, []);
@@ -69,6 +75,7 @@ export default function About() {
     })
     .then((res) => { //clicking finished will remove the current read for BC to the finished
       console.log(res)
+      navigate("/about")
     })
   }
 
@@ -77,7 +84,11 @@ export default function About() {
     navigate("/search")
   }
 
+  console.log(bookclub)
+ 
+
   return (
+    
     <div
       style={{ marginTop: "100px", marginLeft: "50px", marginBottom: "50px" }}
     >
@@ -118,6 +129,8 @@ export default function About() {
             "Not currently reading a book"}
         </p>
       </div>
+
+      {isAdmin &&
       <div className="cta-box">
         {currentBook.length > 0 ? (
           <button onClick={finish} className="cta-button">Finished Reading?</button>
@@ -125,6 +138,7 @@ export default function About() {
           <button onClick={add}className="cta-button">Pick a new Book</button>
         )}
       </div>
+      }
       <h3>Finished reading:</h3>
       {(finishedBooks.length > 0 && getFinishedBooks(finishedBooks)) ||
         "No finished books"}
