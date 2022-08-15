@@ -20,6 +20,7 @@ export default function Club() {
     .then(res => {
       setBookclub(res.data);
       console.log(bookclub);
+      console.log("user id", user.id, "bookclub.creator.id", bookclub.creator.id);
       if (user.id === bookclub.creator.id) {
         setIsAdmin(true)
          };
@@ -81,7 +82,7 @@ export default function Club() {
       console.log(res)
     })
   }
-  
+
   const navigate = useNavigate()
   const add = () => {
     navigate("/search")
