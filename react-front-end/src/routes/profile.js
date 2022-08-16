@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { cleanUpShelf, getBooksByISBN } from "../helpers/booksAPI";
 import axios from 'axios';
-import "./profile.scss"
+import "./styles/profile.scss"
 import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
@@ -91,7 +91,7 @@ export default function Profile() {
       <h3>Want to read:</h3>
       {(shelves.want && shelves.want.length > 0 && getShelfBooks(shelves.want)) || 'No books you want to read yet'}
       <h3>Finished reading:</h3>
-      {(shelves.have && shelves.want.have > 0 && getShelfBooks(shelves.have)) || "No finished books yet"}
+      {(shelves.have && shelves.have.length > 0 && getShelfBooks(shelves.have)) || "No finished books yet"}
     </div>
   );
 };
