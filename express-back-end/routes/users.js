@@ -112,7 +112,6 @@ module.exports = (db) => {
       VALUES ($1, $2, $3, $4) RETURNING id, first_name, last_name;
     `, params)
       .then((data) =>{
-        console.log('returning data:', data);
         res.json({message: 'user created successfully', user: data.rows[0]});
       })
       .catch(error => res.status(500).json({error: error.message}));
