@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { UserContext } from "../context/UserContext";
 import { getBookBySelfLink } from "../helpers/booksAPI";
 import { addToShelf } from "../helpers/database";
 import "./BookCardFull.scss";
 
 export default function BookCardFull(props) {
+
+  const { user } = useContext(UserContext);
 
   const { selfLink, setBookSelfLink } = props;
   const [book, setBook] = useState();
@@ -26,7 +29,7 @@ export default function BookCardFull(props) {
   }
 
   const handlePickShelf = (shelf) => {
-    addToShelf('1', book.industryIdentifiers[0].identifier, shelf);
+    addToShelf(user.id, book.industryIdentifiers[0].identifier, shelf);
     setShowShelves('');
   }
 
