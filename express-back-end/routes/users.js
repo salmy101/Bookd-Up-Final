@@ -109,12 +109,12 @@ module.exports = (db) => {
 
     db.query(`
       INSERT INTO users (first_name, last_name, email, password)
-      VALUES ($1, $2, $3, $4)
+      VALUES ($1, $2, $3, $4) RETURNING id, first_name, last_name;
     `, params)
       .then((data) =>{
-      console.log(data)
-      res.json({message: 'user created successfully'})
-     })
+        console.log('returning data:', data);
+        res.json({message: 'user created successfully', user: data.rows[0]});
+      })
       .catch(error => res.status(500).json({error: error.message}));
       
   });
