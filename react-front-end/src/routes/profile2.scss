@@ -92,11 +92,12 @@ body {
 .user-shelves-card {
   display: flex;
   flex-direction: row;
-  background-color: #212529;
-  height: 480px;
+  background-color: #e6e7e9;
+
+  height: 400px;
   min-width: 40%;
   margin: 30px 40px 40px 40px;
-  color: #fff;
+  color: rgb(2, 2, 2);
   /* animation: slide 20s linear infinite;*/
 }
 
