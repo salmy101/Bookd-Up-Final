@@ -73,6 +73,13 @@ module.exports = (db) => {
 
   });
 
+  router.post('/:id/clubs/current', (req, res) => {
+    db.query(`
+      UPDATE bookclubs SET current_book = $1 WHERE user_id = $2;
+    `, [req.body.isbn, req.params.id])
+      .then(() => res.json({message: 'successfully added to bookclub current reading'}));
+  });
+
   router.post('/:id/shelves', (req, res) => {
     const shelf = req.body.shelf;
     Promise.all([

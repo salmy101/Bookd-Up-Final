@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { getBookBySelfLink } from "../helpers/booksAPI";
-import { addToShelf } from "../helpers/database";
+import { addToClubCurrentBook, addToShelf } from "../helpers/database";
 import "./BookCardFull.scss";
 
 export default function BookCardFull(props) {
@@ -48,10 +48,7 @@ export default function BookCardFull(props) {
             {book && book.publisher && <div className="book-full-info"><span>Publisher: </span>{book.publisher}</div>}
             {book && book.industryIdentifiers && <div className="book-full-info"><span>ISBN: </span>{book.industryIdentifiers[0].identifier}</div>}
             {book && book.description && <div style={{fontWeight: 600}}>Description:</div>}
-            {
-            book && book.description && 
-            <div className="book-full-description" dangerouslySetInnerHTML={{__html: book.description}}></div>
-            }
+            {book && book.description && <div className="book-full-description" dangerouslySetInnerHTML={{__html: book.description}}></div>}
           </div>
 
           <div className="book-full-right">
@@ -73,7 +70,7 @@ export default function BookCardFull(props) {
               <div className="shelf-btn" onClick={() => handlePickShelf('have_reads')}>Finished Reading</div>
             </div>
             <div className="add-to-btn" onClick={() => setShowShelves(showShelves === '' ? '--show' : '')}>My Shelf</div>
-            <div className="add-to-btn">Bookclub's Currently Reading</div>
+            <div className="add-to-btn" onClick={() => addToClubCurrentBook(user.id, book.industryIdentifiers[0].identifier)}>Bookclub's Currently Reading</div>
           </div>
 
         </div>
