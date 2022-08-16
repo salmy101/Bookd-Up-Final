@@ -15,9 +15,9 @@ export default function Profile() {
 
   useEffect(() => {
 
-    if (!user) {
-      navigate('/login');
-    }
+    // if (!user) {
+    //   navigate('/login');
+    // }
 
     Promise.all([
       axios.get(`/api/users/${user && user.id}`),
