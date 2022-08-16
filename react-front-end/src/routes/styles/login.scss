@@ -10,16 +10,10 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
-.sign-up-header-box {
+.login-header-box {
   display: flex;
-  margin-top: 6rem;
   justify-content: center;
-}
-
-.sign-up-header {
-  margin-top: 100px;
-  margin-bottom: 20px;
-  font-weight: 600;
+  margin-top: 175px;
 }
 
 .form-box {
@@ -29,7 +23,7 @@ body {
   flex-direction: column;
 }
 
-input {
+.login-input {
   width: 400px;
   height: 40px;
   padding: 10px;
@@ -42,7 +36,7 @@ input {
   font-size: 16px;
 }
 
-.signup-btn {
+.login-btn {
   background-color: #212529;
   color: #fff;
   font-size: 15px;
@@ -50,10 +44,9 @@ input {
   box-shadow: none;
   border: none;
   border-radius: 5px;
-  margin-top: 30px;
 }
 
-.signup-btn:hover {
+.login-btn:hover {
   background-color: #fff;
   color: #212529;
   font-size: 15px;

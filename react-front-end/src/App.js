@@ -7,8 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 //pages
 import MainPage from "./routes/main";
 import Club from "./routes/club";
-import Search from "./routes/search2";
-import OSearch from "./routes/search";
+import Search from "./routes/search";
 
 import Match from "./routes/match";
 import Login from "./routes/login";
@@ -26,7 +25,6 @@ export default function App() {
           <Route path="/" element={<MainPage />}></Route>
           <Route path="/club/:id" element={<Club />}></Route>
           <Route path="/search" element={<Search />}></Route>
-          <Route path="/osearch" element={<OSearch />}></Route>
           <Route path="/match" element={<Match />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/profile2" element={<Profile2 />}></Route>
