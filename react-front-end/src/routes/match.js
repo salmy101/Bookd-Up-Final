@@ -1,21 +1,44 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Book3D from '../components/Book3D';
 import { getBookBySelfLink, getBooksLinksBySubject } from "../helpers/booksAPI";
 import { genres } from "../helpers/genres";
+import { useColor } from 'color-thief-react';
+import { addToShelf } from "../helpers/database";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 import './styles/match.scss';
 
 export default function Match() {
+
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, []);
+
 
   const [genre, setGenre] = useState();
   const [results, setResults] = useState();
   const [book, setBook] = useState();
   const [bookIndex, setBookIndex] = useState();
+  const [dominantColor, setDominantColor] = useState();
 
+  const { data } = useColor( (book && book.imageLinks && `http://localhost:8081/${book.imageLinks.thumbnail}`) || 'images/default-profile.png' , 'rgbArray', {crossOrigin: 'anonymous'});
+
+  useEffect(() => {
+    setDominantColor(data);
+  }, [data]);
+  
   const getNewBook = () => {
     setBookIndex(prev => prev + 1);
     if (results) {
       getBookBySelfLink(results[bookIndex].selfLink)
-      .then(res => setBook(res.data.volumeInfo));
+      .then(res => {
+        setBook(res.data.volumeInfo)
+      });
     }
   }
 
@@ -27,6 +50,13 @@ export default function Match() {
       setResults(res.data.items);
       getNewBook();
     });
+  }
+
+  const handleLikeBook = () => {
+    if (book) {
+      addToShelf(user.id, book.industryIdentifiers[0].identifier, 'want_to_reads');
+      getNewBook();
+    }
   }
 
   const getGenres = (genres) => {
@@ -51,8 +81,8 @@ export default function Match() {
       </div>
       <div className="matchbook-container">
         <div className="canvas-container">
-          {/* <Book3D coverImage={(book && book.imageLinks && book.imageLinks.thumbnail) || 'images/no-book-thumbnail.png'} pages={(book && book.pageCount) || 300} /> */}
-          <Book3D coverImage={'images/no-book-thumbnail.png'} pages={(book && book.pageCount) || 300} />
+          <Book3D coverImage={(book && book.imageLinks && book.imageLinks.thumbnail) || 'images/no-book-thumbnail.png'} pages={(book && book.pageCount) || 300} dominantColor={dominantColor} />
+          {/* <Book3D coverImage={'images/no-book-thumbnail.png'} pages={(book && book.pageCount) || 300} dominantColor={dominantColor} /> */}
         </div>
           <header className="basic-info-container">
             <div className="basic-info-title">{book && book.title}</div>
@@ -65,7 +95,7 @@ export default function Match() {
           </header>
           <footer className="icons-container">
             <div className="skip" onClick={() => getNewBook()}></div>
-            <div className="like"></div>
+            <div className="like" onClick={() => handleLikeBook()}></div>
           </footer>
       </div>
     </div>

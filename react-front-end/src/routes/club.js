@@ -33,11 +33,11 @@ export default function Club() {
     });
   }, []);
 
-  useEffect(() => {
-    if (bookclub.creator && user.id == bookclub.creator.id) {
-      setIsAdmin(true);
-    }
-  }, [bookclub]);
+    useEffect(() => {
+      if (bookclub.creator && user.id === bookclub.creator.id) {
+        setIsAdmin(true)
+         };
+    }, [bookclub])
 
   // Return <li>'s made from members array
   const getMembers = (members) => {
@@ -74,16 +74,16 @@ export default function Club() {
   };
 
   const finish = () => {
-    console.log("Finished");
-    axios
-      .post(`/api/clubs/${bookclub.club.id}/complete`, {
-        isbn: currentBook[0].industryIdentifiers[0].identifier,
-      })
-      .then((res) => {
-        //clicking finished will remove the current read for BC to the finished
-        console.log(res);
-      });
-  };
+    console.log("Finished")
+    axios.post(`/api/clubs/${bookclub.club.id}/complete`, 
+    {
+      isbn: currentBook[0].industryIdentifiers[0].identifier
+    })
+    .then((res) => { //clicking finished will remove the current read for BC to the finished
+      console.log(res)
+      setCurrentBook([]);
+    })
+  }
 
   const navigate = useNavigate();
   const add = () => {

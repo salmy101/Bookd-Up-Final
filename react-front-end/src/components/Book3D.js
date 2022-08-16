@@ -7,7 +7,7 @@ function FrontCover(props) {
 
   const { coverImage, pages } = props;
 
-  const map = useLoader(TextureLoader, (coverImage === 'images/no-book-thumbnail.png') ? coverImage : `https://cors-anywhere.herokuapp.com/${coverImage}`);
+  const map = useLoader(TextureLoader, (coverImage === 'images/no-book-thumbnail.png') ? coverImage : `http://localhost:8081/${coverImage}`);
   const normalMap = useLoader(TextureLoader, 'textures/hardcover-normal.jpg');
 
   return (
@@ -54,27 +54,38 @@ function Pages(props) {
 
 function Spine(props) {
 
-  const { pages } = props;
+  const { pages, dominantColor } = props;
+  let materialColor = 0x404040;
+
+  if (dominantColor) {
+    materialColor = `rgb(${dominantColor[0] > 10 ? dominantColor[0] - 10 : dominantColor[0]}, ${dominantColor[1] > 10 ? dominantColor[1] - 10 : dominantColor[1]}, ${dominantColor[2] > 10 ? dominantColor[2] - 10 : dominantColor[2]})`;
+  }
 
   const normalMap = useLoader(TextureLoader, '/textures/spine-normal.jpg');
 
   return (
     <mesh position={[-0.345, 0, 0]}>
       <boxGeometry args={[0.025, 1, (pages && (pages / 2500 + 0.04)) || 0.17]}/>
-      <meshStandardMaterial color={0x404040} normalMap={normalMap} roughness={0.1}/>
+      <meshStandardMaterial color={materialColor} normalMap={normalMap} roughness={0.1}/>
     </mesh>
   );
 }
 
 function BackCover(props) {
 
-  const { pages } = props;
+  const { pages, dominantColor } = props;
+  let materialColor = 0x505050;
+
+  if (dominantColor) {
+    materialColor = `rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]})`;
+  }
+
   const normalMap = useLoader(TextureLoader, 'textures/hardcover-normal.jpg');
 
   return (
     <mesh position={[0, 0, (pages && (-pages / 5000 - 0.01)) || -0.075]}>
       <boxGeometry args={[0.6666, 1, 0.02]} />
-      <meshStandardMaterial color={0x505050} normalMap={normalMap} roughness={0.1}/>
+      <meshStandardMaterial color={materialColor} normalMap={normalMap} roughness={0.1}/>
     </mesh>
   );
 }
@@ -100,8 +111,8 @@ function Scene(props) {
       <group ref={book}>
         <FrontCover coverImage={props.coverImage} pages={props.pages} />
         <Pages pages={props.pages} />
-        <Spine pages={props.pages} />
-        <BackCover pages={props.pages} />
+        <Spine pages={props.pages} dominantColor={props.dominantColor} />
+        <BackCover pages={props.pages} dominantColor={props.dominantColor} />
       </group>
     </>
   );
@@ -120,7 +131,7 @@ export default function Book3D(props) {
       onMouseOut={() => setClicked(false)}
     >
       <Suspense fallback={null}>
-        <Scene coverImage={props.coverImage} pages={props.pages} clicked={clicked} />
+        <Scene coverImage={props.coverImage} pages={props.pages} dominantColor={props.dominantColor} clicked={clicked} />
       </Suspense>
     </Canvas>
   );
