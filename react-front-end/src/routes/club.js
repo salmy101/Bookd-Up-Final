@@ -36,7 +36,7 @@ export default function Club() {
   }, []);
 
     useEffect(() => {
-      if (bookclub.creator && user.id == bookclub.creator.id) {
+      if (bookclub.creator && user.id === bookclub.creator.id) {
         setIsAdmin(true)
          };
     }, [bookclub])
@@ -83,6 +83,7 @@ export default function Club() {
     })
     .then((res) => { //clicking finished will remove the current read for BC to the finished
       console.log(res)
+      setCurrentBook([]);
     })
   }
 
