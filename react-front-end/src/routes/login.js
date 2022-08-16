@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import "./login.scss";
+import "./styles/login.scss";
 import { UserContext } from "../context/UserContext";
 
 export default function Login() {
@@ -36,6 +36,7 @@ export default function Login() {
         <form onSubmit={(event) => event.preventDefault()}>
           <div className="form-container">
             <input
+              className="login-input"
               type="text"
               name="email"
               value={email}
@@ -48,6 +49,7 @@ export default function Login() {
 
           <div className="form-container">
             <input
+              className="login-input"
               type="password"
               name="password"
               value={password}

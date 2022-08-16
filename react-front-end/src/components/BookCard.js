@@ -1,43 +1,22 @@
-import React, { useContext } from "react";
-import { UserContext } from "../context/UserContext";
-// import "../search.css";
+import React from "react";
+import './BookCard.scss';
 
+export default function BookCard(props) {
 
-export default function BookCard(){
+  const { thumbnail, title, year, author, selfLink, setBookSelfLink } = props;
 
-  const { open, setOpen } = useContext(UserContext);
-
-  const toggleModal = () => {
-    setOpen(!open);
-  };
-
-
-  return(
-    
-    <div className="search-bookclubs-container">
-    <div className="search-bookclubs-card">
-      <div className="search-bookclubs-text">First Card</div>
-      <button           
-        onClick={toggleModal}
-        className="search-more-btn">See more</button>
-    </div>
-    
-   
-    {open && ( 
-      <div className="popup">
-       {/* <div onClick={toggleModal} className="overlay"></div> */}
-        <div className="popup-img"> </div>
-        <h2 className="popup-header">Hello</h2>
-        <p className="synopsis">Lorem</p>
-        <button 
-        onClick={toggleModal}
-        className="popup-close-btn">
-          Close
-        </button>
+  return (
+    <div className="book-card-container" onClick={() => setBookSelfLink(selfLink)}>
+      <img className="book-card-image" src={thumbnail} alt="Result Book"/>
+      <div className="book-card-details-box">
+        <div className="book-card-title">
+          <b>{title}</b>
         </div>
-        ) }
-  </div>
-  
-  )
-
+        <div className="book-card-year">
+          {year}
+        </div>
+        <div className="book-card-author">{author}</div>
+      </div>
+    </div>
+  );
 }

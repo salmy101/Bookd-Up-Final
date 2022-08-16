@@ -1,4 +1,4 @@
-import React, { Suspense, useRef } from "react";
+import React, { Suspense, useRef, useState } from "react";
 import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { RepeatWrapping, TextureLoader } from "three";
 import './Book3D.scss';
@@ -19,7 +19,7 @@ function FrontCover(props) {
         roughness={0.1}
       />
     </mesh>
-  )
+  );
 }
 
 function Pages(props) {
@@ -69,11 +69,12 @@ function Spine(props) {
 function BackCover(props) {
 
   const { pages } = props;
+  const normalMap = useLoader(TextureLoader, 'textures/hardcover-normal.jpg');
 
   return (
     <mesh position={[0, 0, (pages && (-pages / 5000 - 0.01)) || -0.075]}>
       <boxGeometry args={[0.6666, 1, 0.02]} />
-      <meshStandardMaterial color={0x505050}/>
+      <meshStandardMaterial color={0x505050} normalMap={normalMap} roughness={0.1}/>
     </mesh>
   );
 }
@@ -81,8 +82,13 @@ function BackCover(props) {
 function Scene(props) {
 
   const book = useRef(null);
+
   useFrame(({ mouse }) => {
-    book.current.rotation.set(-mouse.y * 1.5, mouse.x * 1.5, 0);
+    if (props.clicked) {
+      book.current.rotation.set(-mouse.y * 1.5, mouse.x * 1.5, 0);
+    } else {
+      book.current.rotation.y += 0.01;
+    }
   });
 
   return (
@@ -103,13 +109,18 @@ function Scene(props) {
 
 export default function Book3D(props) {
 
+  const [clicked, setClicked] = useState(false);
+
   return (
     <Canvas
       className="canvas"
       camera={{position: [0, 0, 1]}}
+      onMouseDown={() => setClicked(true)}
+      onMouseUp={() => setClicked(false)}
+      onMouseOut={() => setClicked(false)}
     >
       <Suspense fallback={null}>
-        <Scene coverImage={props.coverImage} pages={props.pages} />
+        <Scene coverImage={props.coverImage} pages={props.pages} clicked={clicked} />
       </Suspense>
     </Canvas>
   );

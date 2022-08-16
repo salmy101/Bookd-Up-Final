@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import Axios from "axios";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import "./signup.scss";
+import "./styles/signup.scss";
 
 export default function SignUp() {
   const [emailAtReg, setEmailAtReg] = useState("");
@@ -47,6 +47,7 @@ export default function SignUp() {
         <form onSubmit={(event) => event.preventDefault()}>
           <div className="form-container">
             <input
+              className="sign-up-input"
               type="text"
               name="first_name"
               placeholder="First Name"
@@ -58,6 +59,7 @@ export default function SignUp() {
 
           <div className="form-container">
             <input
+              className="sign-up-input"
               type="text"
               name="last_name"
               placeholder="Last Name"
@@ -69,6 +71,7 @@ export default function SignUp() {
 
           <div className="form-container">
             <input
+              className="sign-up-input"
               type="text"
               name="email"
               placeholder="Email"
@@ -79,13 +82,14 @@ export default function SignUp() {
           </div>
 
           <div className="form-container">
-            <input 
-            type="password" 
-            name="password" 
-            placeholder="Password"
-            onChange={(e) => {
-              setPasswordAtReg(e.target.value);
-            }}
+            <input
+              className="sign-up-input"
+              type="password" 
+              name="password" 
+              placeholder="Password"
+              onChange={(e) => {
+                setPasswordAtReg(e.target.value);
+              }}
             ></input>
           </div>
         </form>
