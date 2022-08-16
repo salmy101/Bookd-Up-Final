@@ -11,7 +11,7 @@ import profileimage from "./profileimage.png";
 import profileimage2 from "./profileimage2.png";
 
 const Profile = () => {
-  const { id } = useParams()
+  const { id } = useParams();
 
   const { user } = useContext(UserContext);
   const [clubs, setClubs] = useState({});
@@ -20,7 +20,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate('/login');
+      navigate("/login");
     }
 
     Promise.all([
@@ -48,8 +48,8 @@ const Profile = () => {
   }, []);
 
   const create = () => {
-    navigate("/create")
-  }
+    navigate("/create");
+  };
 
   const getClubs = (clubs) => {
     return clubs.map((club) => {
@@ -70,31 +70,21 @@ const Profile = () => {
 
   const getShelfBooks = (shelf) => {
     return shelf.map((book, index) => {
-      console.log("BOOK", book)
       return (
-    //     <div key={index} className="user-shelves-container">
-    //     <div key={index} className="user-shelves-card">
-    //     <div>{<img src={book.imageLinks.thumbnail} alt="Shelf Book"/>}</div>
-    //       <p><b>{book.title}</b> {`by ${book.authors[0]}`}</p>
-    //     {/* </div> */}
-    //    </div>
-
-    //     <div key={index} className="user-shelves-container">
-    //     </div>
-    // </div>
-    <div className="book-card-container">
-    <img className="book-card-image" src={book.imageLinks.thumbnail} alt="Result Book"/>
-    <div className="book-card-details-box">
-      <div className="book-card-title">
-        <b>{book.title}</b>
-      </div>
-      <div className="book-card-year">
-        {book.description}
-      </div>
-      <div className="book-card-author">{`by ${book.authors[0]}`}</div>
-    </div>
-    </div>
-    
+        <div key={index} className="book-card-container">
+          <img
+            className="book-card-image"
+            src={book.imageLinks.thumbnail}
+            alt="Result Book"
+          />
+          <div className="book-card-details-box">
+            <div className="book-card-title">
+              <b>{book.title}</b>
+            </div>
+            <div className="book-card-year">{book.description}</div>
+            <div className="book-card-author">{`by ${book.authors[0]}`}</div>
+          </div>
+        </div>
       );
     });
   };
@@ -110,11 +100,16 @@ const Profile = () => {
       </div>
 
       <div className="user-club-header">
-        <h2 className="user-clubs">Created Club</h2> 
-        <div className="cta-box">
-            <button onClick={create} className="cta-button">Start a Bookclub</button>
+        <h2 className="user-clubs">Created Club</h2>
+        {clubs.created < 1 && (
+          <div className="cta-box">
+            <button onClick={create} className="cta-button">
+              Start a Bookclub
+            </button>
           </div>
+        )}
       </div>
+
       <div className="user-club-section">
         {clubs.created && clubs.created.length > 0 && getClubs(clubs.created)}
       </div>
@@ -126,30 +121,37 @@ const Profile = () => {
         {clubs.joined && clubs.joined.length > 0 && getClubs(clubs.joined)}
       </div>
 
-
       <div className="user-shelves-header">
         <h3 className="user-shelves">My Shelves</h3>
       </div>
 
       <div className="user-shelves-section">
-      <h3>Currently Reading</h3>
+        <h3>Currently Reading</h3>
         <div className="user-shelves-container">
-        {(shelves.current && shelves.current.length > 0 && getShelfBooks(shelves.current)) || 'Not currently reading a book'}
+          {(shelves.current &&
+            shelves.current.length > 0 &&
+            getShelfBooks(shelves.current)) ||
+            "Not currently reading a book"}
         </div>
-        </div>
+      </div>
 
-
-        <div className="user-shelves-section">
+      <div className="user-shelves-section">
         <h3>Want to Read</h3>
         <div className="user-shelves-container">
-        {(shelves.want && shelves.want.length > 0 && getShelfBooks(shelves.want)) || 'No books you want to read yet'}
+          {(shelves.want &&
+            shelves.want.length > 0 &&
+            getShelfBooks(shelves.want)) ||
+            "No books you want to read yet"}
         </div>
       </div>
 
       <div className="user-shelves-section">
         <h3>Have Read</h3>
-      <div className="user-shelves-container">
-        {(shelves.have && shelves.have.length > 0 && getShelfBooks(shelves.have)) || "No finished books yet"}
+        <div className="user-shelves-container">
+          {(shelves.have &&
+            shelves.have.length > 0 &&
+            getShelfBooks(shelves.have)) ||
+            "No finished books yet"}
         </div>
       </div>
 
@@ -172,7 +174,6 @@ const Profile = () => {
         {(shelves.have && shelves.have.length > 0 && getShelfBooks(shelves.have)) || "No finished books yet"}
         </div>
       </div> */}
-
     </section>
   );
 };
