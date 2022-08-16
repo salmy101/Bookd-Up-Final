@@ -22,7 +22,8 @@ VALUES ('Bryan', 'Anichini', 'nunogse@vuncid.sz', 'nl3dn4^$', null),
 ('Melvin', 'Manuelli', 'je@puveg.ci', 'BW7ZfgAL', null),
 ('Sylvia', 'Vogt', 'jemaf@conad.sc', 'GqNdXJXf', null),
 ('Pearl', 'Ulivi', 'keluzcat@dic.gb', '3fHd1ppY', null),
-('Ricardo', 'Fratini', 'vo@re.tc', 'l^DIPhc2', null);
+('Ricardo', 'Fratini', 'vo@re.tc', 'l^DIPhc2', null),
+('Salma', 'Ibrahim', 'a@a.com', '123', null);
 
 INSERT INTO bookclubs (user_id, name, description, private, image_url, current_book)
 VALUES ('1', 'The Horror Club', 'Getting Spooky all year round with heart-pounding thrillers and mind-boggling horrors!', false, 'https://i.imgur.com/GIR7eDB.jpg', 9780671751180),
@@ -128,16 +129,42 @@ INSERT INTO current_reads(user_id, isbn)
 VALUES(1, 9781101988640),
 (1, 9781982126995),
 (2,9781501160837),
-(3,9780698176461);
+(2,1423153251),
+(3,9780698176461),
+(4,0735269947),
+(4,0062003178),
+(25, 0525536973),
+(25, 0399547983);
+
+
+
 
 INSERT INTO want_to_reads (user_id, isbn)
 VALUES(1, 9780143133735),
 (1, 9780593333020),
 (2,9781476738024),
-(2,9781501170072);
+(2, 0375829873),
+(2,9781501170072),
+(3,1101664800),
+(3,0989515591),
+(4, 0062658964),
+(4,1101475064),
+(4,0763667676),
+(25,0062085581);
+
 
 INSERT INTO have_reads (user_id, isbn)
 VALUES(1, 9781942851912),
 (1, 9781943888085),
+(1, 0525657754),
+(1,0307370488),
 (2,9781501163111),
-(3,9780062662590);
+(2,1429942495),
+(2,0307887456),
+(3,9780062662590), 
+(3,1617758736),
+(3,0375890548),
+(4,0593566637),
+(25, 0698176464),
+(25,0698135415),
+(25, 0698172620);
