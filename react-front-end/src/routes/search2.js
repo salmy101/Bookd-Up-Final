@@ -75,7 +75,7 @@ export default function Search() {
         onSubmit={(event) => event.preventDefault()}
       >
         <input
-          placeholder="Search"
+          placeholder="Search books"
           value={search}
           onChange={(event) => setSearch(event.target.value)}
         />
