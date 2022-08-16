@@ -33,11 +33,11 @@ export default function Club() {
     });
   }, []);
 
-    useEffect(() => {
-      if (bookclub.creator && user.id === bookclub.creator.id) {
-        setIsAdmin(true)
-         };
-    }, [bookclub])
+  useEffect(() => {
+    if (bookclub.creator && user.id === bookclub.creator.id) {
+      setIsAdmin(true);
+    }
+  }, [bookclub]);
 
   // Return <li>'s made from members array
   const getMembers = (members) => {
@@ -74,16 +74,17 @@ export default function Club() {
   };
 
   const finish = () => {
-    console.log("Finished")
-    axios.post(`/api/clubs/${bookclub.club.id}/complete`, 
-    {
-      isbn: currentBook[0].industryIdentifiers[0].identifier
-    })
-    .then((res) => { //clicking finished will remove the current read for BC to the finished
-      console.log(res)
-      setCurrentBook([]);
-    })
-  }
+    console.log("Finished");
+    axios
+      .post(`/api/clubs/${bookclub.club.id}/complete`, {
+        isbn: currentBook[0].industryIdentifiers[0].identifier,
+      })
+      .then((res) => {
+        //clicking finished will remove the current read for BC to the finished
+        console.log(res);
+        setCurrentBook([]);
+      });
+  };
 
   const navigate = useNavigate();
   const add = () => {
@@ -107,6 +108,9 @@ export default function Club() {
             {bookclub.creator &&
               `Created by: ${bookclub.creator.first_name} ${bookclub.creator.last_name}`}
           </h4>
+          <button className="join-club" href="#">
+            Join Club
+          </button>
         </div>
       </div>
       <div className="club-body">
@@ -147,11 +151,11 @@ export default function Club() {
               Pick a new Book
             </button>
           )}
+          <h3>Finished reading:</h3>
+          {(finishedBooks.length > 0 && getFinishedBooks(finishedBooks)) ||
+            "No finished books"}
         </div>
       )}
-      <h3>Finished reading:</h3>
-      {(finishedBooks.length > 0 && getFinishedBooks(finishedBooks)) ||
-        "No finished books"}
     </div>
   );
 }

@@ -59,9 +59,11 @@ const Profile = () => {
             <img className="bookclub-image" src={profileimage2} />
           </div>
           <div className="user-details-box">
-            <h4>{club.name}</h4>
-            <p>{club.description}</p>
-            <Link to={`/club/${club.id}`}>Visit The Club!</Link>
+            <h4 className="user-club-name">{club.name}</h4>
+            <p className="user-club-desc">{club.description}</p>
+            <Link className="visit-club" to={`/club/${club.id}`}>
+              Visit The Club!
+            </Link>
           </div>
         </div>
       );

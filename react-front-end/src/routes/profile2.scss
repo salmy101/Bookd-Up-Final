@@ -36,6 +36,7 @@ body {
 .user-club-details {
   display: flex;
   align-items: center;
+  margin-bottom: 50px;
 }
 
 .user-details-box {
@@ -61,8 +62,13 @@ body {
   font-size: 12px;
 }
 
+.user-shevles {
+  font-size: 25px;
+}
+
 .user-shelves-header {
   margin: 80px 20px 20px 20px;
+  font-size: 20px;
 }
 
 .user-shelves-section {
@@ -103,4 +109,25 @@ body {
 
 .user-shelves-card:hover {
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.user-club-name {
+  margin-bottom: 0;
+  font-size: 20px;
+}
+
+.user-club-desc {
+  margin-top: 10px;
+}
+
+.visit-club {
+  margin-top: 15px;
+  text-decoration: none;
+  color: #6c757d;
+  font-size: 16px;
+}
+
+.visit-club:hover {
+  color: #212529;
+  transition: 0.3s;
 }

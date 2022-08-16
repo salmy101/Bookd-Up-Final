@@ -29,7 +29,7 @@
 }
 
 .creator {
-  margin-top: 40px;
+  margin-top: 5px;
 }
 
 .club-body {
@@ -54,4 +54,26 @@
 .default-bookclub-img {
   border-radius: 50%;
   width: 200px;
+}
+
+.cta-box {
+  padding: 50px;
+}
+
+.join-club {
+  margin-top: 40px;
+  background-color: #212529;
+  color: #fff;
+  font-size: 15px;
+  padding: 10px 20px;
+  box-shadow: none;
+  border: none;
+  border-radius: 5px;
+}
+
+.join-club:hover {
+  background-color: #fff;
+  color: #212529;
+  cursor: pointer;
+  border: 0.5px solid #212529;
 }
