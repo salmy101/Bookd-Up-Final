@@ -55,12 +55,14 @@ export default function BookCardFull(props) {
           <div className="book-full-right">
             <img
               className="book-full-cover"
-              src={(book && book.imageLinks && (
-                book.imageLinks.large ||
-                book.imageLinks.medium ||
-                book.imageLinks.small ||
-                book.imageLinks.thumbnail ||
-                "images/no-book-thumbnail.png")) ||
+              src={( book && book.imageLinks && 
+                // (
+                // book.imageLinks.large ||
+                // book.imageLinks.medium ||
+                // book.imageLinks.small ||
+                // book.imageLinks.thumbnail )
+                book.imageLinks.thumbnail
+                ) ||
                 "images/no-book-thumbnail.png"}
               alt="Full Book Cover"
             />
