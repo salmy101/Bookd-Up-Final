@@ -51,7 +51,7 @@ export default function Profile() {
       return (
         <div key={club.id} className="user-club-details">
           <div className="user-club-image">
-            <img className="bookclub-image" src={club.image_url || "images/default-profile2.png"} alt="Default" />
+            <img className="bookclub-image" src={club.image_url || "images/default-club.png"} alt="Default" />
           </div>
           <div className="user-details-box">
             <h4>{club.name}</h4>
