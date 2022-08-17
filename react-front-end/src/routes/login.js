@@ -18,7 +18,7 @@ export default function Login() {
     })
     .then((res) => { 
       setUser(res.data.user);
-      navigate("/profile2");
+      navigate("/profile");
     });
   };
 

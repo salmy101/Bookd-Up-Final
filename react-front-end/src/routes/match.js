@@ -53,7 +53,7 @@ export default function Match() {
   }
 
   const handleLikeBook = () => {
-    if (book) {
+    if (book && book.industryIdentifiers) {
       addToShelf(user.id, book.industryIdentifiers[0].identifier, 'want_to_reads');
       getNewBook();
     }

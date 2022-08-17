@@ -29,7 +29,7 @@ INSERT INTO bookclubs (user_id, name, description, private, image_url, current_b
 VALUES ('1', 'The Horror Club', 'Getting Spooky all year round with heart-pounding thrillers and mind-boggling horrors!', false, 'https://i.imgur.com/GIR7eDB.jpg', 9780671751180),
 ('2', 'The Fantasy Club', 'In this club we read all sort of Fantasy ranging from JRR Tolkien,Laini Taylor
 , Patrick Rothfuss, N.K Jemisin, etc !', true, 'https://i.imgur.com/2v9TsPF.jpg', 9780553593716),
-('3', 'The Non-Fiction Club', 'We focus on great pieces of non-fiction including memoirs, autobiographies, and more!', false, 'https://i.imgur.com/MzvAywi.jpg', 9781631498916),
+('3', 'The Non-Fiction Club', 'We focus on great pieces of non-fiction including memoirs, autobiographies, and more!', false, 'https://i.imgur.com/JssZyal.png', 9781631498916),
 ('4', 'BookTok', 'In this club we read and review all the trending books on Booktok to see if they are worth the hype', true, 'https://i.imgur.com/6goP45s.jpg', 9781250766571),
 ('5', 'The Sci-Fi Club', 'We discuss sci-fis!', false, 'https://i.imgur.com/dF53393.jpg', 0441013597),
 ('6', 'History in The Pages', 'In this book club we love to learn from our collective past and read fascinating hsitory!', false, 'https://i.imgur.com/mCJJrl4.jpg', 9780609809648),
@@ -40,25 +40,25 @@ VALUES ('1', 'The Horror Club', 'Getting Spooky all year round with heart-poundi
 
 INSERT INTO finished_books (club_id, isbn)
 VALUES (1, 9781501142970),
-(1, 9781101663004),
-(2, 9781635574050),
-(2, 9780312850098),
-(2, 9781250027436),
-(3, 9780553900347),
-(3, 9780684874357),
-(3, 9780771038525),
-(4, 9780765387585),
-(4, 9781982143657),
-(4, 9780062085511), 
-(5, 9780547249643),
-(5, 9780553900347),
-(6, 9780393609295),
-(6, 9781101946336),
-(7, 9789380914404),
-(7, 9781433394614),
-(8, 9780771006883),
-(8, 9780743211536),
-(9, 9780812997873);
+(1, '9781101663004'),
+(2, '9781635574050'),
+(2, '9780312850098'),
+(2, '9781250027436'),
+(3, '9780553900347'),
+(3, '9780684874357'),
+(3, '9780771038525'),
+(4, '9780765387585'),
+(4, '9781982143657'),
+(4, '9780062085511'), 
+(5, '9780547249643'),
+(5, '9780553900347'),
+(6, '9780393609295'),
+(6, '9781101946336'),
+(7, '9789380914404'),
+(7, '9781433394614'),
+(8, '9780771006883'),
+(8, '9780743211536'),
+(9, '9780812997873');
 
 
 INSERT INTO members (club_id, user_id)
@@ -126,45 +126,45 @@ VALUES(1, '2022-08-25', '04:59.999999', 'google.met.com', null, false),
 (1, '2019-08-25', '04:59.999999', 'google.met.com', null, true);
 
 INSERT INTO current_reads(user_id, isbn)
-VALUES(1, 9781101988640),
-(1, 9781982126995),
-(2,9781501160837),
-(2,1423153251),
-(3,9780698176461),
-(4,0735269947),
-(4,0062003178),
-(25, 0525536973),
-(25, 0399547983);
+VALUES(1, '9781101988640'),
+(1, '9781982126995'),
+(2, '9781501160837'),
+(2, '1423153251'),
+(3, '9780698176461'),
+(4, '0735269947'),
+(4, '0062003178'),
+(25, '0525536973'),
+(25, '0399547983');
 
 
 
 
 INSERT INTO want_to_reads (user_id, isbn)
-VALUES(1, 9780143133735),
-(1, 9780593333020),
-(2,9781476738024),
-(2, 0375829873),
-(2,9781501170072),
-(3,1101664800),
-(3,0989515591),
-(4, 0062658964),
-(4,1101475064),
-(4,0763667676),
-(25,0062085581);
+VALUES(1, '9780143133735'),
+(1, '9780593333020'),
+(2, '9781476738024'),
+(2, '0375829873'),
+(2, '9781501170072'),
+(3, '1101664800'),
+(3, '0989515591'),
+(4, '0062658964'),
+(4, '1101475064'),
+(4, '0763667676'),
+(25, '0062085581');
 
 
 INSERT INTO have_reads (user_id, isbn)
-VALUES(1, 9781942851912),
-(1, 9781943888085),
-(1, 0525657754),
-(1,0307370488),
-(2,9781501163111),
-(2,1429942495),
-(2,0307887456),
-(3,9780062662590), 
-(3,1617758736),
-(3,0375890548),
-(4,0593566637),
-(25, 0698176464),
-(25,0698135415),
-(25, 0698172620);
+VALUES(1, '9781942851912'),
+(1, '9781943888085'),
+(1, '0525657754'),
+(1, '0307370488'),
+(2, '9781501163111'),
+(2, '1429942495'),
+(2, '0307887456'),
+(3, '9780062662590'), 
+(3, '1617758736'),
+(3, '0375890548'),
+(4, '0593566637'),
+(25, '0698176464'),
+(25, '0698135415'),
+(25, '0698172620');
