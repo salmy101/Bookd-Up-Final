@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
 import "./styles/main.scss";
-import profileimage2 from "./profileimage2.png";
-import { useNavigate, Link, useParams } from "react-router-dom";
-import styled from "styled-components";
 
 
 export default function MainPage() {
   const [clubs, setClubs] = useState();
-  const { id } = useParams();
-
 
   const navigate = useNavigate();
   const signup = () => {
@@ -23,26 +19,19 @@ export default function MainPage() {
     });
   }, []);
 
-  const StyledLink  = styled(Link)`
-     font-weight: 400;
-     color: #fff;
-`;
-
-
   const getClubs = (clubs) => {
     return clubs.map((club) => {
       return (
         <div key={club.id} className="popular-bookclubs-card">
             <img className="club-image"
-              src={club.image_url || "images/default-profile2.png"}
+              src={club.image_url || "images/default-club.png"}
               alt="Default"
               />
             <div className="club-info"> 
-                <h3> {club.name}</h3>
-                <p>{club.description}</p>
-              <div className="club-link">
-                <StyledLink to={`/club/${club.id}`}>Visit The Club!</StyledLink>
-            </div>
+              <h3>{club.name}</h3>
+              <p>{club.description}</p>
+              <p>{club.member_count} members</p>
+              <Link className="club-link" to={`/club/${club.id}`}>Visit The Club!</Link>
             </div>
         </div>
       );
@@ -54,16 +43,16 @@ export default function MainPage() {
       <div className="content">
         <div className="hero-section">
           <div className="hero-header-box">
-            <h1 className="hero-header"> A Book Lovers Hub</h1>
+            <h1 className="hero-header">A Book Lovers Hub</h1>
           </div>
 
           <div className="hero-text-box">
             <span className="hero-text">
-              You can build your own virtual bookshelves by using our
-              awesome search tool and if you dont know what you are in the mood
-              to read checkout Matchbook and match with a book recommended to
-              you based on your prefrences. Lastly, make and join a bookclub with
-              fellow readers.
+              Love books? So do we! With Book'd Up you can build your own virtual
+              bookshelves by using our awesome search tool. If you don't know what
+              you're in the mood to read, checkout Matchbook and match with a book
+              based on your preferences. You can also make and join bookclubs with
+              fellow readers!
             </span>
           </div>
           <div className="cta-box">
