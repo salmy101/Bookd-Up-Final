@@ -66,6 +66,8 @@ export default function Club() {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
+            marginBottom: '20px',
+            paddingTop: '20px'
           }}
         >
           <div>
@@ -83,6 +85,12 @@ export default function Club() {
   const handleJoinClub = () => {
     axios.post(`/api/clubs/${bookclub.club.id}`, {
       user_id: user.id
+    })
+    .then(() => {
+      const members = [...bookclub.members, user];
+      const club = { ...bookclub.club, member_count: members.length}
+      setBookclub({ ...bookclub, club, members });
+      setAlreadyJoined(true);
     });
   }
 
@@ -94,7 +102,9 @@ export default function Club() {
       .then((res) => {
         //clicking finished will remove the current read for BC to the finished
         console.log(res);
+        setFinishedBooks([currentBook[0], ...finishedBooks]);
         setCurrentBook([]);
+        // console.log(finishedBooks);
       });
   };
 
@@ -108,7 +118,7 @@ export default function Club() {
       <div className="club-header">
         <img
           className="default-bookclub-img"
-          src={(bookclub && bookclub.club && bookclub.club.image_url) || "../images/avengers.png"}
+          src={(bookclub && bookclub.club && bookclub.club.image_url) || "../images/default-club.png"}
           alt="Default Club"
         />
         <div className="club-header-text">
@@ -130,9 +140,10 @@ export default function Club() {
         {(bookclub.members && bookclub.members.length > 0 && (
           <ul className="members">{getMembers(bookclub.members)}</ul>
         )) || <p>No members yet</p>}
-        <div className="current-books-box">
-          <h3 className="current-books">Currently reading</h3>
-          <div>
+
+        <div className="current-books">
+          <h1>Currently reading</h1>
+          <div className="current-books-box">
             {currentBook.length > 0 && (
               <img
                 src={currentBook[0].imageLinks.thumbnail}
@@ -144,28 +155,32 @@ export default function Club() {
             </p>
             <p>
               {(currentBook.length > 0 && `by ${currentBook[0].authors[0]}`) ||
-                "Not currently reading a book"}
+                <div style={{padding: '20px', transform: 'translateY(-20px)'}}>Not currently reading a book</div>}
             </p>
           </div>
+
+        {isAdmin && (
+          <div className="finished-or-pick-btn">
+            {currentBook.length > 0 ? (
+              <button onClick={finish} className="cta-button">
+                Move To Finished
+              </button>
+            ) : (
+              <button onClick={add} className="cta-button">
+                Pick A New Book
+              </button>
+            )}
+          </div>
+        )}
+
         </div>
       </div>
 
-      {isAdmin && (
-        <div className="cta-box">
-          {currentBook.length > 0 ? (
-            <button onClick={finish} className="cta-button">
-              Finished Reading?
-            </button>
-          ) : (
-            <button onClick={add} className="cta-button">
-              Pick a new Book
-            </button>
-          )}
-          <h3>Finished reading:</h3>
-          {(finishedBooks.length > 0 && getFinishedBooks(finishedBooks)) ||
-            "No finished books"}
-        </div>
-      )}
+      <div className="cta-box">
+        <h1>Finished reading:</h1>
+        {(finishedBooks.length > 0 && getFinishedBooks(finishedBooks)) ||
+          "No finished books"}
+      </div>
     </div>
   );
 }

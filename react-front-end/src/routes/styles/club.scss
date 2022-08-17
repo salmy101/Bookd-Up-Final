@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700&display=swap");
-/* colors: #212529, #ced4da, #f8f9fa, #F5F3F4*/
 
 * {
   font-family: "Montserrat", sans-serif;
@@ -33,7 +32,7 @@
 }
 
 .club-body {
-  padding: 50px;
+  padding: 50px 50px 0px 50px;
 }
 
 .members-count {
@@ -46,8 +45,17 @@
   margin-top: 10px;
 }
 
+.current-books-box {
+  width: 200px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+}
+
 .current-books {
-  font-size: 30px;
   margin-top: 40px;
 }
 
@@ -57,7 +65,7 @@
 }
 
 .cta-box {
-  padding: 50px;
+  padding: 50px 50px 0px 50px;
 }
 
 .join-club {
@@ -76,4 +84,8 @@
   color: #212529;
   cursor: pointer;
   border: 0.5px solid #212529;
+}
+
+.finished-or-pick-btn {
+  margin-top: 20px;
 }
