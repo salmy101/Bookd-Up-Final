@@ -22,7 +22,7 @@ export default function Profile() {
 
     Promise.all([
       axios.get(`/api/users/${user && user.id}/clubs`),
-      axios.get(`/api/users/${user && user.id}/shelves`),
+      axios.get(`/api/users/${user && user.id}/shelves`)
     ]).then((res) => {
       setClubs(res[0].data);
 
@@ -30,7 +30,7 @@ export default function Profile() {
       Promise.all([
         getBooksByISBN(res[1].data.current),
         getBooksByISBN(res[1].data.want),
-        getBooksByISBN(res[1].data.have),
+        getBooksByISBN(res[1].data.have)
       ]).then((res) => {
         // Clean up the returned book data before setting state
         setShelves({
@@ -39,7 +39,8 @@ export default function Profile() {
           have: cleanUpShelf(res[2]),
         });
       });
-    });
+    })
+    .catch(res => console.log(res));
   }, []);
 
   const create = () => {
@@ -92,8 +93,9 @@ export default function Profile() {
       <div className="user-club-header">
         <h1 className="user-clubs">Created Club</h1>
         {clubs.created && clubs.created.length === 0 && (
-          <div className="cta-box">
-            <button onClick={create} className="cta-button">
+          <div className="cta-box-profile">
+            Looks like you haven't created a bookclub yet!
+            <button style={{width: '175px', marginTop: '30px'}} onClick={create} className="cta-button">
               Start a Bookclub
             </button>
           </div>
@@ -108,7 +110,7 @@ export default function Profile() {
         <h1 className="user-clubs">Joined Clubs</h1>
       </div>
       <div className="user-club-section">
-        {clubs.joined && clubs.joined.length > 0 && getClubs(clubs.joined)}
+        {(clubs.joined && clubs.joined.length > 0 && getClubs(clubs.joined)) || <div style={{width: '500px'}}>Join a bookclub to meet other book lovers just like you!</div>}
       </div>
 
       <div className="user-shelves-header">
@@ -121,7 +123,7 @@ export default function Profile() {
           {(shelves.current &&
             shelves.current.length > 0 &&
             getShelfBooks(shelves.current)) ||
-            "Not currently reading a book"}
+            <div style={{width: '100%', textAlign: 'center'}}>Not currently reading a book</div>}
         </div>
       </div>
 
@@ -131,7 +133,7 @@ export default function Profile() {
           {(shelves.want &&
             shelves.want.length > 0 &&
             getShelfBooks(shelves.want)) ||
-            "No books you want to read yet"}
+            <div style={{width: '100%', textAlign: 'center'}}>No books you want to read yet</div>}
         </div>
       </div>
 
@@ -141,7 +143,7 @@ export default function Profile() {
           {(shelves.have &&
             shelves.have.length > 0 &&
             getShelfBooks(shelves.have)) ||
-            "No finished books yet"}
+            <div style={{width: '100%', textAlign: 'center', marginBottom: '100px'}}>No finished books yet</div>}
         </div>
       </div>
       {bookSelfLink && <BookCardFull setBookSelfLink={setBookSelfLink} selfLink={bookSelfLink} />}
