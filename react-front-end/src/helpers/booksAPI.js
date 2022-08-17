@@ -3,7 +3,7 @@ import axios from 'axios';
 // Takes in an array of isbns and returns a promise for book name, author, and thumbnail
 export function getBooksByISBN(bookISBNs) {
   const searchQuery = 'https://www.googleapis.com/books/v1/volumes?q=isbn:';
-  const resultFields = '&fields=items(selfLink,volumeInfo/title,volumeInfo(authors),volumeInfo/imageLinks/thumbnail,volumeInfo/publishedDate)';
+  const resultFields = '&fields=items(selfLink,volumeInfo/title,volumeInfo(authors),volumeInfo/imageLinks/thumbnail,volumeInfo/industryIdentifiers,volumeInfo/publishedDate)';
   const promises = [];
 
   for (const isbn of bookISBNs) {
@@ -14,7 +14,6 @@ export function getBooksByISBN(bookISBNs) {
 }
 
 export function cleanUpShelf(shelf) {
-
   const result = [];
 
   for (const book of shelf) {
@@ -25,7 +24,6 @@ export function cleanUpShelf(shelf) {
   }
 
   return result;
-
 }
 
 // Returns 12 books based on search parameters
