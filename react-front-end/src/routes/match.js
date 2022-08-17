@@ -74,30 +74,33 @@ export default function Match() {
   }
 
   return (
-    <div className="main">
-      <div className="genres-container">
-        Pick a genre:
-        {getGenres(Object.keys(genres))}
-      </div>
-      <div className="matchbook-container">
-        <div className="canvas-container">
-          <Book3D coverImage={(book && book.imageLinks && book.imageLinks.thumbnail) || 'images/no-book-thumbnail.png'} pages={(book && book.pageCount) || 300} dominantColor={dominantColor} />
-          {/* <Book3D coverImage={'images/no-book-thumbnail.png'} pages={(book && book.pageCount) || 300} dominantColor={dominantColor} /> */}
+    <>
+      <div className="tag-line">🔥 <em>Ignite your passion for reading!</em></div>
+      <div className="main">
+        <div className="genres-container">
+          Pick a genre:
+          {getGenres(Object.keys(genres))}
         </div>
-          <header className="basic-info-container">
-            <div className="basic-info-title">{book && book.title}</div>
-            <div>📖 {(book && book.pageCount && `${book.pageCount} pages`) || 'No pages'}</div>
-            <div>🗓 {(book && book.publishedDate && book.publishedDate.split('-')[0]) || 'No year'}</div>
-            <div>⭐️ {(book && book.averageRating) || 'No reviews'} {book && book.ratingsCount && `(${book.ratingsCount} reviews)`}</div>
-            <div>👤 {(book && book.authors && book.authors[0]) || 'No author'}</div>
-            <div style={{marginTop: 10}}>Description</div>
-            <div className="basic-info-description" dangerouslySetInnerHTML={{__html: (book && book.description) || 'No description'}}></div>
-          </header>
-          <footer className="icons-container">
-            <div className="skip" onClick={() => getNewBook()}></div>
-            <div className="like" onClick={() => handleLikeBook()}></div>
-          </footer>
+        <div className="matchbook-container">
+          <div className="canvas-container">
+            <Book3D coverImage={(book && book.imageLinks && book.imageLinks.thumbnail) || 'images/no-book-thumbnail.png'} pages={(book && book.pageCount) || 300} dominantColor={dominantColor} />
+            {/* <Book3D coverImage={'images/no-book-thumbnail.png'} pages={(book && book.pageCount) || 300} dominantColor={dominantColor} /> */}
+          </div>
+            <header className="basic-info-container">
+              <div className="basic-info-title">{book && book.title}</div>
+              <div>📖 {(book && book.pageCount && `${book.pageCount} pages`) || 'No pages'}</div>
+              <div>🗓 {(book && book.publishedDate && book.publishedDate.split('-')[0]) || 'No year'}</div>
+              <div>⭐️ {(book && book.averageRating) || 'No reviews'} {book && book.ratingsCount && `(${book.ratingsCount} reviews)`}</div>
+              <div>👤 {(book && book.authors && book.authors[0]) || 'No author'}</div>
+              <div style={{marginTop: 10}}>Description</div>
+              <div className="basic-info-description" dangerouslySetInnerHTML={{__html: (book && book.description) || 'No description'}}></div>
+            </header>
+            <footer className="icons-container">
+              <div className="skip" onClick={() => getNewBook()}></div>
+              <div className="like" onClick={() => handleLikeBook()}></div>
+            </footer>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

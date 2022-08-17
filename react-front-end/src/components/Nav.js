@@ -36,7 +36,7 @@ export default function Nav() {
           </li>
           <li>
             <StyledNavLink to="/match" className="nav-item">
-              MatchBook
+              MatchBook<span className="fire-emoji">🔥</span>
             </StyledNavLink>
           </li>
           <li>
