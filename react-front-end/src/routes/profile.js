@@ -56,7 +56,7 @@ export default function Profile() {
           <div className="user-details-box">
             <h4>{club.name}</h4>
             <p>{club.description}</p>
-            <Link to={`/club/${club.id}`}>Visit The Club!</Link>
+            <Link className="club-links" to={`/club/${club.id}`}>Visit The Club!</Link>
           </div>
         </div>
       );
