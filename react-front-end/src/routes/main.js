@@ -1,12 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./styles/main.scss";
-import {useNavigate} from "react-router-dom";
+import profileimage2 from "./profileimage2.png";
+import { useNavigate, Link, useParams } from "react-router-dom";
+import styled from "styled-components";
 
 
 export default function MainPage() {
+  const [clubs, setClubs] = useState();
+  const { id } = useParams();
+
+
   const navigate = useNavigate();
   const signup = () => {
     navigate("/signup");
+  };
+
+  useEffect(() => {
+    axios.get(`/api/clubs`).then((res) => {
+      setClubs(res.data.clubs);
+      console.log("CLUBS", clubs);
+    });
+  }, []);
+
+  const StyledLink  = styled(Link)`
+     font-weight: 400;
+     color: #fff;
+`;
+
+
+  const getClubs = (clubs) => {
+    return clubs.map((club) => {
+      return (
+        <div key={club.id} className="popular-bookclubs-card">
+            <img className="club-image"
+              src={club.image_url || "images/default-profile2.png"}
+              alt="Default"
+              />
+            <div className="club-info"> 
+                <h3> {club.name}</h3>
+                <p>{club.description}</p>
+              <div className="club-link">
+                <StyledLink to={`/club/${club.id}`}>Visit The Club!</StyledLink>
+            </div>
+            </div>
+        </div>
+      );
+    });
   };
 
   return (
@@ -19,9 +59,11 @@ export default function MainPage() {
 
           <div className="hero-text-box">
             <span className="hero-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-              vulputate massa et posuere dictum. Pellentesque habitant morbi
-              tristique senectus et netus et malesuada fames ac turpis egestas
+              You can build your own virtual bookshelves by using our
+              awesome search tool and if you dont know what you are in the mood
+              to read checkout Matchbook and match with a book recommended to
+              you based on your prefrences. Lastly, make and join a bookclub with
+              fellow readers.
             </span>
           </div>
           <div className="cta-box">
@@ -38,12 +80,7 @@ export default function MainPage() {
       <div className="popular-bookclubs-section">
         <h2 className="popular-bookclubs-header">Bookclubs</h2>
         <div className="popular-bookclubs-container">
-          <div className="popular-bookclubs-card">First Card</div>
-          <div className="popular-bookclubs-card">Second Card</div>
-          <div className="popular-bookclubs-card">Third Card</div>
-          <div className="popular-bookclubs-card">Fourth Card</div>
-          <div className="popular-bookclubs-card">Fifth Card</div>
-          <div className="popular-bookclubs-card">Last card</div>
+          {clubs && getClubs(clubs)}
         </div>
       </div>
     </section>
