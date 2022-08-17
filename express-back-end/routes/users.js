@@ -27,6 +27,7 @@ module.exports = (db) => {
 
   // Getting specific user's 3 shelves
   router.get('/:id/shelves', (req, res) => {
+    console.log('asking for ' + req.params.id + 'shelves');
     Promise.all([
       db.query(`
         SELECT isbn
@@ -55,7 +56,6 @@ module.exports = (db) => {
 
   // Getting clubs created and joined by specific user
   router.get('/:id/clubs', (req, res) => {
-
     Promise.all([
       db.query(`
         SELECT id, name, description, image_url
@@ -100,7 +100,10 @@ module.exports = (db) => {
         VALUES ($1, $2)
     `, [req.params.id, req.body.isbn])
     ])
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data);
+        res.sendStatus(200);
+      })
       .catch(error => res.status(500).json({error: error.message}));
   });
 
