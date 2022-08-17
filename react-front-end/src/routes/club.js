@@ -12,12 +12,19 @@ export default function Club() {
   const [bookclub, setBookclub] = useState({});
   const [currentBook, setCurrentBook] = useState([]);
   const [finishedBooks, setFinishedBooks] = useState([]);
+  const [alreadyJoined, setAlreadyJoined] = useState();
   const [isAdmin, setIsAdmin] = useState(false);
   const { user } = useContext(UserContext);
 
   useEffect(() => {
     axios.get(`/api/clubs/${id}`).then((res) => {
       setBookclub(res.data);
+      for (const member of res.data.members) {
+        if (member.id === user.id) {
+          setAlreadyJoined(true);
+        }
+      }
+      console.log('resssss: ', res);
       console.log(bookclub);
       console.log(user);
 
@@ -27,7 +34,7 @@ export default function Club() {
         getBooksByISBN(res.data.finished),
       ]).then((res) => {
         setCurrentBook(cleanUpShelf(res[0]));
-        console.log("current book", currentBook);
+        console.log("current book", res[0]);
         setFinishedBooks(cleanUpShelf(res[1]));
       });
     });
@@ -73,10 +80,15 @@ export default function Club() {
     });
   };
 
+  const handleJoinClub = () => {
+    axios.post(`/api/clubs/${bookclub.club.id}`, {
+      user_id: user.id
+    });
+  }
+
   const finish = () => {
     console.log("Finished");
-    axios
-      .post(`/api/clubs/${bookclub.club.id}/complete`, {
+    axios.post(`/api/clubs/${bookclub.club.id}/complete`, {
         isbn: currentBook[0].industryIdentifiers[0].identifier,
       })
       .then((res) => {
@@ -96,7 +108,7 @@ export default function Club() {
       <div className="club-header">
         <img
           className="default-bookclub-img"
-          src="../images/avengers.png"
+          src={(bookclub && bookclub.club && bookclub.club.image_url) || "../images/avengers.png"}
           alt="Default Club"
         />
         <div className="club-header-text">
@@ -108,9 +120,7 @@ export default function Club() {
             {bookclub.creator &&
               `Created by: ${bookclub.creator.first_name} ${bookclub.creator.last_name}`}
           </h4>
-          <button className="join-club" href="#">
-            Join Club
-          </button>
+          {!alreadyJoined && <button className="join-club" onClick={handleJoinClub}>Join Club</button>}
         </div>
       </div>
       <div className="club-body">
