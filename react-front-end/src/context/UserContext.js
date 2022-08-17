@@ -4,12 +4,9 @@ import React, {createContext, useEffect, useState} from 'react';
 const UserContext = createContext({});
 
 const UserContextProvider = (props) => {
-  const [open, setOpen] = useState(false);
-  // const [clubOwner, setClubOwner] = useState(null)
-
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('current_user')));
-
+  
   // grab value when page  loads and set what ever the state was last time
   useEffect(() => {
    const data = localStorage.getItem('current_user');
@@ -24,7 +21,7 @@ const UserContextProvider = (props) => {
   }, [user]);
  
   return (
-    <UserContext.Provider value={{user, setUser , open, setOpen}}>
+    <UserContext.Provider value={{ user, setUser }}>
       {props.children}
     </UserContext.Provider>
   );
