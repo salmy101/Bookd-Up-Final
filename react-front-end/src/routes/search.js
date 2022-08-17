@@ -42,7 +42,7 @@ export default function Search() {
         key={index}
         thumbnail={(result.imageLinks && result.imageLinks.thumbnail) || "images/no-book-thumbnail.png"}
         title={result.title}
-        year={result.publishedDate.split("-")[0]}
+        year={result.publishedDate && result.publishedDate.split("-")[0]}
         author={result && result.authors && result.authors[0]}
         selfLink={result && result.selfLink}
         setBookSelfLink={setBookSelfLink}
@@ -71,6 +71,7 @@ export default function Search() {
         </div>
       </div>
 
+      {result.length === 0 && <img style={{width: '400px', display: 'block', marginRight: 'auto', marginLeft: 'auto', marginTop: '75px', opacity: 0.5}} src="images/magnifying-glass.png" alt="Magnifying Glass"/>}
       <div className="results-container">{result.length > 0 && getResults(result)}</div>
       
       <div className={`pagination-btn${result.length > 0 ? '--show' : ''}`}>
