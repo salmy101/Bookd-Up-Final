@@ -41,7 +41,7 @@ export default function Nav() {
           </li>
           <li>
             {user ? (
-              <StyledNavLink to="/profile2" className="nav-item signup">
+              <StyledNavLink to="/profile" className="nav-item signup">
                 My Profile
               </StyledNavLink>
             ) : (
