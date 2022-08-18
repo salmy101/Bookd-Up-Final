@@ -26,6 +26,9 @@ export default function Match() {
   const [bookIndex, setBookIndex] = useState();
   const [dominantColor, setDominantColor] = useState();
 
+  const [show, setShow] = useState('');
+  const [likeOrSkip, setLikeOrSkip] = useState('skipped');
+
   const { data } = useColor( (book && book.imageLinks && `http://localhost:8081/${book.imageLinks.thumbnail}`) || 'images/default-profile.png' , 'rgbArray', {crossOrigin: 'anonymous'});
 
   useEffect(() => {
@@ -35,10 +38,14 @@ export default function Match() {
   const getNewBook = () => {
     setBookIndex(prev => prev + 1);
     if (results) {
-      getBookBySelfLink(results[bookIndex].selfLink)
-      .then(res => {
-        setBook(res.data.volumeInfo)
-      });
+      setShow('--show');
+      setTimeout(() => {
+        getBookBySelfLink(results[bookIndex].selfLink)
+        .then(res => {
+          setBook(res.data.volumeInfo);
+          setShow('');
+        });
+      }, 1200);
     }
   }
 
@@ -55,8 +62,14 @@ export default function Match() {
   const handleLikeBook = () => {
     if (book && book.industryIdentifiers) {
       addToShelf(user.id, book.industryIdentifiers[0].identifier, 'want_to_reads');
-      getNewBook();
     }
+    setLikeOrSkip('liked');
+    getNewBook();
+  }
+
+  const handleSkipBook = () => {
+    setLikeOrSkip('skipped');
+    getNewBook();
   }
 
   const getGenres = (genres) => {
@@ -82,6 +95,7 @@ export default function Match() {
           {getGenres(Object.keys(genres))}
         </div>
         <div className="matchbook-container">
+          <div className={`loading-cover${show} ${likeOrSkip}`}></div>
           <div className="canvas-container">
             <Book3D coverImage={(book && book.imageLinks && book.imageLinks.thumbnail) || 'images/no-book-thumbnail.png'} pages={(book && book.pageCount) || 300} dominantColor={dominantColor} />
             {/* <Book3D coverImage={'images/no-book-thumbnail.png'} pages={(book && book.pageCount) || 300} dominantColor={dominantColor} /> */}
@@ -96,7 +110,7 @@ export default function Match() {
               <div className="basic-info-description" dangerouslySetInnerHTML={{__html: (book && book.description) || 'No description'}}></div>
             </header>
             <footer className="icons-container">
-              <div className="skip" onClick={() => getNewBook()}></div>
+              <div className="skip" onClick={() => handleSkipBook()}></div>
               <div className="like" onClick={() => handleLikeBook()}></div>
             </footer>
         </div>

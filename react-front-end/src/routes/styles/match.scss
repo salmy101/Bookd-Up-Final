@@ -53,6 +53,7 @@ $icon-size: 85px;
 
 .matchbook-container {
   width: 400px;
+  position: relative;
   background-color: rgb(248, 243, 243);
 
   border: 2px solid gray;
@@ -60,6 +61,34 @@ $icon-size: 85px;
   box-shadow: 5px 5px 5px lightgray;
 
   margin-bottom: 50px;
+}
+
+.loading-cover {
+  width: 0%;
+  height: 100%;
+  position: absolute;
+  background-color: lightgray;
+  z-index: 1;
+  transition: width 0.25s;
+}
+
+.loading-cover--show {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: lightgray;
+  z-index: 1;
+  transition: width 0.25s;
+}
+
+.loading-cover.liked,
+.loading-cover--show.liked {
+  background-color: #54E9BA;
+}
+
+.loading-cover.skipped,
+.loading-cover--show.skipped {
+  background-color: #FF315C;
 }
 
 .canvas-container {
