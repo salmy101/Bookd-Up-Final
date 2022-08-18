@@ -69,6 +69,7 @@ $icon-size: 85px;
   position: absolute;
   background-color: lightgray;
   z-index: 1;
+  overflow: hidden;
   transition: width 0.25s;
 }
 
@@ -78,6 +79,7 @@ $icon-size: 85px;
   position: absolute;
   background-color: lightgray;
   z-index: 1;
+  overflow: hidden;
   transition: width 0.25s;
 }
 
@@ -89,6 +91,14 @@ $icon-size: 85px;
 .loading-cover.skipped,
 .loading-cover--show.skipped {
   background-color: #FF315C;
+}
+
+.loading-cover-icon {
+  // width: 63%;
+  width: 250px;
+  opacity: 0.15;
+  margin-left: 70px;
+  margin-top: 200px;
 }
 
 .canvas-container {
