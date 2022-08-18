@@ -6,6 +6,7 @@ import { useColor } from 'color-thief-react';
 import { addToShelf } from "../helpers/database";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
+import coverBookIcon from '../assets/images/matchbook-cover-icon.png';
 import './styles/match.scss';
 
 export default function Match() {
@@ -22,18 +23,24 @@ export default function Match() {
 
   const [genre, setGenre] = useState();
   const [results, setResults] = useState();
+  const [resultsChanged, setResultsChanged] = useState(false);
   const [book, setBook] = useState();
-  const [bookIndex, setBookIndex] = useState();
-  const [dominantColor, setDominantColor] = useState();
+  const [bookIndex, setBookIndex] = useState(0);
 
+  const [dominantColor, setDominantColor] = useState();
+  
   const [show, setShow] = useState('');
-  const [likeOrSkip, setLikeOrSkip] = useState('skipped');
+  const [likeOrSkip, setLikeOrSkip] = useState('');
 
   const { data } = useColor( (book && book.imageLinks && `http://localhost:8081/${book.imageLinks.thumbnail}`) || 'images/default-profile.png' , 'rgbArray', {crossOrigin: 'anonymous'});
 
   useEffect(() => {
     setDominantColor(data);
   }, [data]);
+
+  useEffect(() => {
+    getNewBook();
+  }, [resultsChanged]);
   
   const getNewBook = () => {
     setBookIndex(prev => prev + 1);
@@ -50,12 +57,14 @@ export default function Match() {
   }
 
   const handlePickGenre = (category) => {
+    if (genre === category) return;
+    setLikeOrSkip('');
     setGenre(category);
     setBookIndex(0);
     getBooksLinksBySubject(category)
     .then(res => {
       setResults(res.data.items);
-      getNewBook();
+      setResultsChanged(prev => !prev);
     });
   }
 
@@ -95,7 +104,7 @@ export default function Match() {
           {getGenres(Object.keys(genres))}
         </div>
         <div className="matchbook-container">
-          <div className={`loading-cover${show} ${likeOrSkip}`}></div>
+          <div className={`loading-cover${show} ${likeOrSkip}`}><img className="loading-cover-icon" src={coverBookIcon} alt="Cover Book Icon"></img></div>
           <div className="canvas-container">
             <Book3D coverImage={(book && book.imageLinks && book.imageLinks.thumbnail) || 'images/no-book-thumbnail.png'} pages={(book && book.pageCount) || 300} dominantColor={dominantColor} />
             {/* <Book3D coverImage={'images/no-book-thumbnail.png'} pages={(book && book.pageCount) || 300} dominantColor={dominantColor} /> */}
