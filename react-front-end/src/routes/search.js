@@ -4,6 +4,7 @@ import BookCard from "../components/BookCard";
 import BookCardFull from "../components/BookCardFull";
 import { UserContext } from "../context/UserContext";
 import { cleanUpSearchResults, getBooksBySearch } from "../helpers/booksAPI";
+import Spinner from "../components/Spinner";
 import "./styles/search.scss";
 
 export default function Search() {
@@ -22,15 +23,20 @@ export default function Search() {
   const [filter, setFilter] = useState('');
   const [result, setResult] = useState([]);
   const [bookSelfLink, setBookSelfLink] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const startSearch = () => {
-    getBooksBySearch(search, page, filter).then((res) => {
+    setIsLoading(true);
+    getBooksBySearch(search, page, filter)
+    .then(res => {
       setResult(cleanUpSearchResults(res.data.items));
+      setIsLoading(false);
     });
   };
 
   useEffect(() => {
     if (search){
+      setResult([]);
       startSearch();
     }
   }, [page]);
@@ -50,6 +56,19 @@ export default function Search() {
       );
     });
   };
+
+  const checkSearchStatus = () => {
+    if (isLoading && result.length === 0) {
+      return (
+        <div style={{width: '180px', margin: 'auto', marginTop: '150px'}}><Spinner /></div>
+      );
+    }
+    if (result.length === 0) {
+      return (
+        <img style={{width: '400px', display: 'block', marginRight: 'auto', marginLeft: 'auto', marginTop: '75px', opacity: 0.5}} src="images/magnifying-glass.png" alt="Magnifying Glass"/>
+      );
+    }
+  }
 
   return (
     <>
@@ -71,7 +90,8 @@ export default function Search() {
         </div>
       </div>
 
-      {result.length === 0 && <img style={{width: '400px', display: 'block', marginRight: 'auto', marginLeft: 'auto', marginTop: '75px', opacity: 0.5}} src="images/magnifying-glass.png" alt="Magnifying Glass"/>}
+      {checkSearchStatus()}
+
       <div className="results-container">{result.length > 0 && getResults(result)}</div>
       
       <div className={`pagination-btn${result.length > 0 ? '--show' : ''}`}>
