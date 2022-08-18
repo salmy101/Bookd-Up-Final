@@ -5,14 +5,15 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import BookCard from "../components/BookCard";
 import BookCardFull from "../components/BookCardFull";
+import Spinner from "../components/Spinner";
 import "./styles/profile.scss";
 
 export default function Profile() {
-
   const { user } = useContext(UserContext);
   const [clubs, setClubs] = useState({});
   const [shelves, setShelves] = useState({});
   const [bookSelfLink, setBookSelfLink] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,6 +27,7 @@ export default function Profile() {
     ]).then((res) => {
       setClubs(res[0].data);
 
+      setIsLoading(true);
       // Send ISBNs to helper function and get back promises to get data from book API
       Promise.all([
         getBooksByISBN(res[1].data.current),
@@ -38,6 +40,7 @@ export default function Profile() {
           want: cleanUpShelf(res[1]),
           have: cleanUpShelf(res[2]),
         });
+        setIsLoading(false);
       });
     })
     .catch(res => console.log(res));
@@ -80,6 +83,17 @@ export default function Profile() {
     });
   }
 
+  const handleLoadShelf = (shelf, message) => {
+    if (isLoading) {
+      return <div style={{width: '110px', margin: 'auto', marginTop: '40px', marginBottom: '20px'}}><Spinner /></div>;
+    }
+    if (shelf && shelf.length > 0) {
+      return getShelfBooks(shelf);
+    } else {
+      return <div style={{width: '100%', textAlign: 'center'}}>{message}</div>;
+    }
+  }
+
   return (
     <section className=" profile-section">
       <div className="profile-container">
@@ -120,30 +134,21 @@ export default function Profile() {
       <div className="user-shelves-section">
         <h2>Currently Reading</h2>
         <div className="user-shelves-container">
-          {(shelves.current &&
-            shelves.current.length > 0 &&
-            getShelfBooks(shelves.current)) ||
-            <div style={{width: '100%', textAlign: 'center'}}>Not currently reading a book</div>}
+          {handleLoadShelf(shelves.current, 'Not currently reading a book')}
         </div>
       </div>
 
       <div className="user-shelves-section">
         <h2>Want to Read</h2>
         <div className="user-shelves-container">
-          {(shelves.want &&
-            shelves.want.length > 0 &&
-            getShelfBooks(shelves.want)) ||
-            <div style={{width: '100%', textAlign: 'center'}}>No books you want to read yet</div>}
+          {handleLoadShelf(shelves.want, 'No books you want to read yet')}
         </div>
       </div>
 
       <div className="user-shelves-section">
         <h2>Finished Reading</h2>
-        <div className="user-shelves-container">
-          {(shelves.have &&
-            shelves.have.length > 0 &&
-            getShelfBooks(shelves.have)) ||
-            <div style={{width: '100%', textAlign: 'center', marginBottom: '100px'}}>No finished books yet</div>}
+        <div style={{marginBottom: '75px'}} className="user-shelves-container">
+          {handleLoadShelf(shelves.have, 'No finished books yet')}
         </div>
       </div>
       {bookSelfLink && <BookCardFull setBookSelfLink={setBookSelfLink} selfLink={bookSelfLink} />}
