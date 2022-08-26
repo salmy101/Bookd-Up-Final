@@ -13,27 +13,27 @@ bookshelves by using our awesome search tool. If you don't know what you're in t
 
 ### Clubs ive Created and Joined
 
-![My Clubs](https://github.com/salmy101/scheduler/blob/master/docs/creating.png?raw=true)
+![My Clubs](docs/myclubs.png)
 
 ### Exmaple of a Bookshelf
 
-![My Bookshelf](https://github.com/salmy101/scheduler/blob/master/docs/show.png?raw=true)
+![My Bookshelf](docs/shelf.png)
 
 ### Search for Books
 
-![Search](https://github.com/salmy101/scheduler/blob/master/docs/deleting.png?raw=true)
+![Search](docs/search.png)
 
 ### Bookcard full View
 
-![Search Result](https://github.com/salmy101/scheduler/blob/master/docs/deleting.png?raw=true)
+![Search Result](docs/bookcard.png)
 
 ### MatchBook
 
-![Matchbook](https://github.com/salmy101/scheduler/blob/master/docs/deleting.png?raw=true)
+![Matchbook](docs/matchbook.png)
 
 ### List of Clubs
 
-![More CLubs](https://github.com/salmy101/scheduler/blob/master/docs/deleting.png?raw=true)
+![More CLubs](docs/bookclubs.png)
 
 ## Running the Project
 
